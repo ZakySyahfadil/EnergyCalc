@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_desain"
+    tools:context=".SignUp3">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/signup"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        />
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_back_arrow"
+        android:layout_margin="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="Back Button" />
+
+    <TextView
+        android:id="@+id/signText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_sign"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:layout_marginTop="160dp"
+        android:layout_marginStart="35dp"
+        android:textColor="#000000"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:id="@+id/namesign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="17sp"
+        android:textColor="#000000"
+        android:layout_below="@+id/signText"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="35dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/nameuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/namesign"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="First Name"
+            android:textColor="@color/brown"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="17dp"
+            android:text="Last Name"
+            android:textColor="@color/brown"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/entername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameuser"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:id="@+id/firstname"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter name"
+            android:textColor="#000000"
+            android:padding="12dp"
+            android:textColorHint="#AAAAAA"/>
+
+        <EditText
+            android:id="@+id/lastname"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter name"
+            android:textColor="#000000"
+            android:padding="12dp"
+            android:textColorHint="#AAAAAA"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/failfirst"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/entername"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:text="Please enter your name."
+        android:textColor="#FF0000"
+        android:visibility="gone"
+        android:textSize="12sp"
+        />
+
+    <TextView
+        android:id="@+id/newpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/entername"
+        android:layout_marginTop="35dp"
+        android:text="@string/text_pass"
+        android:layout_marginStart="35dp"
+        />
+
+    <EditText
+        android:id="@+id/passsign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:layout_below="@+id/newpass"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="#000000"
+        android:textColorHint="#888888"
+        android:padding="12dp"
+        android:hint="Enter your password"
+        />
+
+    <TextView
+        android:id="@+id/failpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passsign"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:text="Please enter your password."
+        android:textColor="#FF0000"
+        android:visibility="gone"
+        android:textSize="12sp"
+        />
+
+    <TextView
+        android:id="@+id/PassCondition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passsign"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="4dp"
+        android:text="Password must contain 7 letters and 1 number."
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/newsign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/failpass"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:text="Sign Up"
+        android:background="@drawable/button_filled"
+        />
+
+</RelativeLayout>

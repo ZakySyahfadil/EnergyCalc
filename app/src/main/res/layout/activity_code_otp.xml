@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_desain"
+    tools:context=".CodeOtp">
+
+    <!-- Background image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/log_in"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_back_arrow"
+        android:layout_margin="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="Back Button" />
+
+    <TextView
+        android:id="@+id/btnForgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Pass"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:layout_marginTop="160dp"
+        android:layout_marginStart="35dp"
+        android:textColor="#000000"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/Code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We have sent you the OTP Code."
+        android:textSize="17sp"
+        android:textColor="#000000"
+        android:layout_below="@id/btnForgot"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="35dp" />
+
+    <!-- ========================= -->
+    <!--      OTP INPUT BOXES      -->
+    <!-- ========================= -->
+
+    <LinearLayout
+        android:id="@+id/otpContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Code"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:gravity="center"
+        android:weightSum="6"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/otp1"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:background="@drawable/otp_box"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="#AAAAAA"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/otp2"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/otp_box"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="#AAAAAA"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/otp3"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:textColor="#AAAAAA"
+            android:background="@drawable/otp_box"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/otp4"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/otp_box"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="#AAAAAA"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/otp5"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/otp_box"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="#AAAAAA"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/otp6"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/otp_box"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="#AAAAAA"
+            android:gravity="center"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCodeError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/otpContainer"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="4dp"
+        android:text="Please enter the code."
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tvCodeFail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/otpContainer"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="4dp"
+        android:text="Incorrect code, please try again."
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:id="@+id/btncontainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/otpContainer"
+        android:orientation="horizontal"
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/Continue"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:text="Continue"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_filled"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Get new code"
+            android:textColor="#D6B35A"
+            android:background="@drawable/button_border"
+            android:layout_marginStart="20dp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/limamenit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btncontainer"
+        android:layout_marginTop="8dp"
+        android:text="The code will expire in 5 minutes."
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/brown"
+        />
+
+    <TextView
+        android:id="@+id/expired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btncontainer"
+        android:layout_marginTop="8dp"
+        android:text="The code has expired, please request a new one."
+        android:layout_centerHorizontal="true"
+        android:textColor="#FF0000"
+        android:visibility="gone"
+    />
+
+</RelativeLayout>

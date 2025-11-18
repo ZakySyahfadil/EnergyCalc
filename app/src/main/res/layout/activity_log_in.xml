@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_desain"
+    tools:context=".LogIn">
+
+    <!-- Background image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/log_in"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/logText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_log"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:layout_marginTop="160dp"
+        android:layout_marginStart="35dp"
+        android:textColor="#000000"
+        android:layout_alignParentStart="true" />
+
+    <!-- Email label -->
+    <TextView
+        android:id="@+id/emailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logText"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/text_email"
+        android:textColor="#000000"
+        android:textSize="17sp" />
+
+    <!-- Email input -->
+    <EditText
+        android:id="@+id/inputEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Email"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/emailLabel"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="#000000"
+        android:textColorHint="#888888"
+        android:padding="12dp" />
+
+    <!-- Email Error -->
+    <TextView
+        android:id="@+id/tvEmailError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputEmail"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="4dp"
+        android:text="Please enter your email."
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
+
+    <!-- Email Not Register -->
+    <TextView
+        android:id="@+id/tvEmailRegist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputEmail"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="4dp"
+        android:text="Email not registered"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
+
+    <!-- Password label -->
+    <TextView
+        android:id="@+id/passLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_pass"
+        android:textSize="17sp"
+        android:textColor="#000000"
+        android:layout_below="@+id/inputEmail"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="35dp" />
+
+    <!-- Password input -->
+    <EditText
+        android:id="@+id/inputPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/passLabel"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="#000000"
+        android:textColorHint="#888888"
+        android:padding="12dp" />
+
+    <!-- Password Error -->
+    <TextView
+        android:id="@+id/tvPassError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputPass"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="4dp"
+        android:text="Please enter your Password."
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
+
+    <!-- Password Incorrect -->
+    <TextView
+        android:id="@+id/tvPassIncorrect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputPass"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="4dp"
+        android:text="Incorrect password, please try again."
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
+
+
+    <!-- LOGIN + FORGOT PASS BUTTON GROUP -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/inputPass"
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:text="@string/text_log"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_filled"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Forgot Pass?"
+            android:textColor="#D6B35A"
+            android:background="@drawable/button_border"
+            android:layout_marginStart="20dp" />
+    </LinearLayout>
+
+    <!-- Text: Don’t have account -->
+    <TextView
+        android:id="@+id/dontHaveAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don’t have account?"
+        android:textSize="14sp"
+        android:textColor="#999999"
+        android:layout_below="@id/buttonContainer"
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Sign Up button -->
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Sign Up"
+        android:textColor="#D6B35A"
+        android:background="@drawable/button_border"
+        android:textStyle="bold"
+        android:layout_below="@id/dontHaveAcc"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp" />
+
+</RelativeLayout>
