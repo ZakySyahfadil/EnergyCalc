@@ -117,7 +117,7 @@ class LogIn : AppCompatActivity() {
         }
 
         btnForgot.setOnClickListener {
-            startActivity(Intent(this, CodeOtp::class.java))
+            startActivity(Intent(this, EmailForgot::class.java))
         }
 
         btnSignUp.setOnClickListener {

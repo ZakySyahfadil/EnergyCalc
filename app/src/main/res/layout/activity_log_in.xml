@@ -49,11 +49,11 @@
         android:hint="Masukkan Email"
         android:inputType="textEmailAddress"
         android:layout_below="@+id/emailLabel"
+        android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:background="@drawable/edittext_background"
-        android:textColor="#000000"
         android:textColorHint="#888888"
         android:padding="12dp" />
 
@@ -107,11 +107,11 @@
         android:hint="Masukkan Password"
         android:inputType="textPassword"
         android:layout_below="@+id/passLabel"
+        android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:background="@drawable/edittext_background"
-        android:textColor="#000000"
         android:textColorHint="#888888"
         android:padding="12dp" />
 

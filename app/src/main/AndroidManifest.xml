@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
         <activity
+            android:name=".EmailForgot"
+            android:exported="false" />
+        <activity
             android:name=".ResetPass"
             android:exported="false" />
         <activity
