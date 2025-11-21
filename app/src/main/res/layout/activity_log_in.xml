@@ -26,7 +26,7 @@
         android:textSize="32sp"
         android:layout_marginTop="160dp"
         android:layout_marginStart="35dp"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:layout_alignParentStart="true" />
 
     <!-- Email label -->
@@ -38,7 +38,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
         android:text="@string/text_email"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="17sp" />
 
     <!-- Email input -->
@@ -46,7 +46,7 @@
         android:id="@+id/inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Masukkan Email"
+        android:hint="Enter your email"
         android:inputType="textEmailAddress"
         android:layout_below="@+id/emailLabel"
         android:textColor="@color/black"
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:text="@string/text_pass"
         android:textSize="17sp"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:layout_below="@+id/inputEmail"
         android:layout_marginTop="35dp"
         android:layout_marginStart="35dp" />
@@ -104,7 +104,7 @@
         android:id="@+id/inputPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Masukkan Password"
+        android:hint="Enter your password"
         android:inputType="textPassword"
         android:layout_below="@+id/passLabel"
         android:textColor="@color/black"
