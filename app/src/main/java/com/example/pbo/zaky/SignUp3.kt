@@ -1,13 +1,15 @@
-package com.example.pbo
+package com.example.pbo.zaky
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Button
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import com.example.pbo.R
+import com.example.pbo.zaky.WelcomePage
 
 class SignUp3 : AppCompatActivity() {
 

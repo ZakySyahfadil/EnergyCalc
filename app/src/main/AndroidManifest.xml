@@ -12,31 +12,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
         <activity
-            android:name=".EmailForgot"
+            android:name=".zaky.EmailForgot"
             android:exported="false" />
         <activity
-            android:name=".ResetPass"
+            android:name=".zaky.ResetPass"
             android:exported="false" />
         <activity
-            android:name=".SignUp3"
+            android:name=".zaky.SignUp3"
             android:exported="false" />
         <activity
-            android:name=".SignUp2"
+            android:name=".zaky.SignUp2"
             android:exported="false" />
         <activity
-            android:name=".CodeOtp"
+            android:name=".zaky.CodeOtp"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".zaky.SignUp"
             android:exported="false" />
         <activity
-            android:name=".LogIn"
+            android:name=".zaky.LogIn"
             android:exported="false" />
         <activity
-            android:name=".WelcomePage"
+            android:name=".zaky.WelcomePage"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".zaky.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
