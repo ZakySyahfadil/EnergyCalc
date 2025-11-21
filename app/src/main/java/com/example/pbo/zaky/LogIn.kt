@@ -18,6 +18,14 @@ class LogIn : AppCompatActivity() {
 
     private val loginController: ILoginController = LoginController()
 
+    private fun isEmail(input: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()
+    }
+
+    private fun isPhone(input: String): Boolean {
+        return input.matches(Regex("^\\d{10,15}$"))   // bebas kamu atur 10-15 digit
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -47,12 +55,13 @@ class LogIn : AppCompatActivity() {
 
             var valid = true
 
-            // Validasi email kosong
+            // Validasi email atau no hp kosong
             if (email.isEmpty()) {
-                tvEmailError.text = "Please enter your email."
+                tvEmailError.text = "Please enter email or phone number."
                 tvEmailError.visibility = View.VISIBLE
                 valid = false
             }
+
 
             // Validasi password kosong
             if (pass.isEmpty()) {
@@ -65,6 +74,7 @@ class LogIn : AppCompatActivity() {
 
             // Ambil SharedPreferences yang kita gunakan di SignUp
             val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
+            val savedPhone = sharedPref.getString("phone", null)?.trim()
 
             // 1) Ambil email yang disimpan di key "email" (single-account style)
             val savedEmailRaw = sharedPref.getString("email", null)
@@ -81,15 +91,36 @@ class LogIn : AppCompatActivity() {
             // =========================
             //   CEK APAKAH EMAIL TERDAFTAR
             // =========================
-            val emailIsRegistered = when {
-                // jika single stored email cocok
-                savedEmail != null && emailNormalized == savedEmail -> true
-                // atau jika email ada di set USED_EMAILS
-                savedEmailSetNormalized.contains(emailNormalized) -> true
-                else -> false
+            val inputValue = email // pakai variabel yang sudah ada
+
+            val loginWithEmail = isEmail(inputValue)
+            val loginWithPhone = isPhone(inputValue)
+
+            if (!loginWithEmail && !loginWithPhone) {
+                tvEmailError.text = "Please enter a valid email or phone number."
+                tvEmailError.visibility = View.VISIBLE
+                return@setOnClickListener
             }
 
-            if (!emailIsRegistered) {
+            var isRegistered = false
+
+            if (loginWithEmail) {
+                isRegistered = (savedEmail != null && inputValue.lowercase() == savedEmail) ||
+                        savedEmailSetNormalized.contains(inputValue.lowercase())
+            }
+
+            if (loginWithPhone) {
+                isRegistered = (savedPhone != null && inputValue == savedPhone)
+            }
+
+            if (!isRegistered) {
+                tvEmailError.text = "Account not found"
+                tvEmailError.visibility = View.VISIBLE
+                return@setOnClickListener
+            }
+
+
+            if (!isRegistered) {
                 tvEmailError.text = "Email not registered"
                 tvEmailError.visibility = View.VISIBLE
                 return@setOnClickListener
