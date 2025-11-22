@@ -2,6 +2,7 @@ package com.example.pbo.utils
 
 import android.view.View
 
+// Tes Pull Up Request
 class AnimationHelper {
     fun fadeInTwoViews(first: View, second: View, onEnd: () -> Unit) {
         first.alpha = 0f
