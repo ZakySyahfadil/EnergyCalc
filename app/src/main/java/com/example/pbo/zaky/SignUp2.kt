@@ -38,7 +38,7 @@ class SignUp2 : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up2)
 
         // Ambil email yang dikirim dari SignUp1
-        email = intent.getStringExtra("email")
+        email = intent.getStringExtra("identifier")
 
         val btnBack = findViewById<ImageView>(R.id.btnBack)
         btnBack.setOnClickListener { finish() }
@@ -65,7 +65,6 @@ class SignUp2 : AppCompatActivity() {
         btnContinue.setOnClickListener { validateOtp() }
         btnGetNewCode.setOnClickListener { regenerateOtp() }
     }
-
 
     // ---------------- TIMER --------------------
     private fun startExpireTimer() {
@@ -128,9 +127,9 @@ class SignUp2 : AppCompatActivity() {
             return
         }
 
-        // OTP benar → lanjut ke SignUp3 sambil membawa email
+        // OTP benar → lanjut ke SignUp3 sambil membawa identifier (email atau phone)
         val intent = Intent(this, SignUp3::class.java).apply {
-            putExtra("email", email)
+            putExtra("identifier", email)
         }
         startActivity(intent)
     }

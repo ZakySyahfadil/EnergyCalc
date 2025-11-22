@@ -6,7 +6,6 @@ import androidx.room.Query
 
 @Dao
 interface AccountDao {
-
     @Insert
     suspend fun insertAccount(account: Account)
 
