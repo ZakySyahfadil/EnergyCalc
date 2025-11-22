@@ -7,14 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.TextView
 import android.widget.ImageView
-import com.example.ec.changeName
+import com.example.pbo.Alim.changeName
 import com.example.pbo.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_setting)
 
         val btnChangeName = findViewById<Button>(R.id.btnChangeName)
         btnChangeName.setOnClickListener {
