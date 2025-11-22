@@ -2,14 +2,18 @@
     <!-- Tema utama aplikasi -->
     <style name="Theme.PBO" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Warna utama -->
-        <item name="colorPrimary">#D6B35A</item>
-        <item name="colorPrimaryVariant">#B8994D</item>
+        <item name="colorPrimary">#DABE81</item>
+        <item name="colorPrimaryVariant">#DA8181</item>
         <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorOnError">@color/red</item>
+
 
         <!-- Nonaktifkan dark mode otomatis -->
         <item name="android:forceDarkAllowed">false</item>
 
         <!-- Warna teks utama -->
         <item name="android:textColor">#000000</item>
+
+
     </style>
 </resources>

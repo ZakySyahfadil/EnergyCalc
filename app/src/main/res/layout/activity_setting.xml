@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Alim.settingActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_setting"
+        android:id="@+id/background"
+        />
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_back_arrow"
+        android:layout_marginTop="44dp"
+        android:layout_marginLeft="9dp"
+        android:id="@+id/btn_back"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_back"
+        android:text="Ready to update your profile?"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:id="@+id/txt_1"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_1"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="17dp"
+        android:layout_centerHorizontal="true"
+        android:width="380dp"
+        android:text="change name"
+        android:textColor="@color/white"
+        android:background="@drawable/button_shape"
+        android:id="@+id/btnChangeName"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChangeName"
+        android:layout_marginTop="18dp"
+        android:layout_marginHorizontal="17dp"
+        android:layout_centerHorizontal="true"
+        android:width="380dp"
+        android:text="change password"
+        android:textColor="@color/white"
+        android:background="@drawable/button_shape"
+        android:id="@+id/btn2"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn2"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="17dp"
+        android:layout_centerHorizontal="true"
+        android:width="380dp"
+        android:text="log out"
+        android:textColor="@color/white"
+        android:background="@drawable/button_shape2"
+        android:id="@+id/btn3"
+        app:backgroundTint="@null"
+        app:rippleColor="@null"
+        />
+
+</RelativeLayout>

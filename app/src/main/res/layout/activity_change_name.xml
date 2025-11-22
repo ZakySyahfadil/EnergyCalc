@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/changenamepage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/changenamebg" />
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_marginLeft="9dp"
+        android:src="@drawable/ic_back_arrow" />
+
+    <TextView
+        android:id="@+id/changename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="170dp"
+        android:text="Change Name"
+        android:textColor="@color/black"
+        android:textSize="28dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/changename"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="10dp"
+        android:text="Name" />
+
+    <!-- LABEL FIRST/LAST NAME -->
+    <LinearLayout
+        android:id="@+id/labelName"
+        android:layout_below="@id/changename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginHorizontal="17dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:textColor="@color/brown" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:text="Last Name"
+            android:textColor="@color/brown" />
+    </LinearLayout>
+
+    <!-- EDITTEXT FIRST/LAST NAME -->
+    <LinearLayout
+        android:id="@+id/enterName"
+        android:layout_below="@id/labelName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="17dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/firstname"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="60dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter Name"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textColorHint="#AAAAAA" />
+
+        <EditText
+            android:id="@+id/lastname"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="60dp"
+            android:layout_marginLeft="17dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter Name"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textColorHint="#AAAAAA" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/enteryourname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/enterName"
+        android:layout_marginHorizontal="17dp"
+        android:layout_marginTop="5dp"
+        android:text="Please enter your name"
+        android:textColor="@color/red"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/enteryourname"
+        android:layout_marginHorizontal="17dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/button_shape"
+        android:text="Save"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

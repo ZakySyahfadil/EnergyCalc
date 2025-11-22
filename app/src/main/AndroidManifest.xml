@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
         <activity
+            android:name=".Alim.ChangePassword"
+            android:exported="false" />
+        <activity
+            android:name=".Alim.ChangeName"
+            android:exported="false" />
+        <activity
+            android:name=".Alim.settingActivity"
+            android:exported="false" />
+        <activity
             android:name=".zaky.EmailForgot"
             android:exported="false" />
         <activity
