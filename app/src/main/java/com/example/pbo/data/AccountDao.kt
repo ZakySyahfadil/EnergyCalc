@@ -1,0 +1,14 @@
+package com.example.pbo.data
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+
+@Dao
+interface AccountDao {
+    @Insert
+    suspend fun insertAccount(account: Account)
+
+    @Query("SELECT * FROM accounts WHERE email = :email LIMIT 1")
+    suspend fun getAccountByEmail(email: String): Account?
+}

@@ -6,10 +6,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pbo.R
-import com.example.pbo.zaky.WelcomePage
+import com.example.pbo.data.Account
+import com.example.pbo.data.AppDatabase
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class SignUp3 : AppCompatActivity() {
 
@@ -29,15 +33,14 @@ class SignUp3 : AppCompatActivity() {
 
         val sendCodeBtn = findViewById<Button>(R.id.newsign)
 
-        // Ambil email dari halaman SignUp1
-        val email = intent.getStringExtra("email")
+        // Ambil email dari halaman SignUp2
+        val email = intent.getStringExtra("identifier")
 
         // Tombol Back
         btnBack.setOnClickListener {
             finish()
         }
 
-        // Tombol Sign Up
         sendCodeBtn.setOnClickListener {
 
             val first = firstName.text.toString().trim()
@@ -71,25 +74,40 @@ class SignUp3 : AppCompatActivity() {
                 passCondition.visibility = TextView.GONE
             }
 
-            if (valid) {
+            // Email harus ada
+            if (email.isNullOrEmpty()) {
+                Toast.makeText(this, "Email hilang. Ulangi proses Sign Up.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
 
-                // ===================================
-                //   SIMPAN DATA KE SHAREDPREFERENCES
-                // ===================================
-                val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
-                val editor = sharedPref.edit()
+            if (valid) if (valid) {
+                lifecycleScope.launch {
+                    val db = AppDatabase.getDatabase(this@SignUp3)
+                    val dao = db.accountDao()
 
-                editor.putString("email", email)
-                editor.putString("firstname", first)
-                editor.putString("lastname", last)
-                editor.putString("password", pass)
-                editor.apply()
-                // ===================================
+                    // INSERT ke Room
+                    dao.insertAccount(Account(email = email, password = pass))
 
-                val fullName = "$first $last"
-                val intent = Intent(this, WelcomePage::class.java)
-                intent.putExtra("USER_NAME", fullName)
-                startActivity(intent)
+                    // CEK HASILNYA di LOG
+                    val acc = dao.getAccountByEmail(email)
+                    android.util.Log.d("DB_TEST", "HASIL: $acc")
+
+                    runOnUiThread {
+                        val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
+                        sharedPref.edit().apply {
+                            putString("firstname", first)
+                            putString("lastname", last)
+                            putString("email", email)
+                            apply()
+                        }
+
+                        val fullName = "$first $last"
+                        val intent = Intent(this@SignUp3, WelcomePage::class.java)
+                        intent.putExtra("USER_NAME", fullName)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
             }
         }
     }
