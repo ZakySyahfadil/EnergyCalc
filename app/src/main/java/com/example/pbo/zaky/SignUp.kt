@@ -9,7 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.pbo.R
+import com.example.pbo.data.AppDatabase
+import kotlinx.coroutines.launch
 
 class SignUp : AppCompatActivity() {
 
@@ -33,30 +36,39 @@ class SignUp : AppCompatActivity() {
         btnSendCode.setOnClickListener {
             val userInput = input.text.toString().trim()
 
-            // RESET error messages
             tvEmpty.visibility = TextView.GONE
             tvFormat.visibility = TextView.GONE
             tvUsed.visibility = TextView.GONE
 
             var valid = true
 
-            // 1️⃣ Tidak boleh kosong
             if (userInput.isEmpty()) {
                 tvEmpty.visibility = TextView.VISIBLE
                 valid = false
-
-                // 2️⃣ Format harus email ATAU nomor HP
-            } else if (!isValidEmail(userInput) && !isValidPhone(userInput)) {
+            }
+            else if (!isValidEmail(userInput) && !isValidPhone(userInput)) {
                 tvFormat.text = "Format must be a valid email or phone number"
                 tvFormat.visibility = TextView.VISIBLE
                 valid = false
             }
 
             if (valid) {
-                // Lanjut ke halaman OTP / SignUp2, kirim identifier (email atau phone)
-                val intent = Intent(this, SignUp2::class.java)
-                intent.putExtra("identifier", userInput)
-                startActivity(intent)
+                lifecycleScope.launch {
+                    val db = AppDatabase.getDatabase(this@SignUp)
+                    val dao = db.accountDao()
+
+                    val emailExists = dao.getAccountByEmail(userInput)
+                    val phoneExists = dao.getAccountByPhone(userInput)
+
+                    if (emailExists != null || phoneExists != null) {
+                        tvUsed.text = "Email / phone number already registered"
+                        tvUsed.visibility = TextView.VISIBLE
+                    } else {
+                        val intent = Intent(this@SignUp, SignUp2::class.java)
+                        intent.putExtra("identifier", userInput)
+                        startActivity(intent)
+                    }
+                }
             }
         }
     }
