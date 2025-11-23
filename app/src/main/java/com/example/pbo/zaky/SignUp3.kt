@@ -86,7 +86,14 @@ class SignUp3 : AppCompatActivity() {
                     val dao = db.accountDao()
 
                     // INSERT ke Room
-                    dao.insertAccount(Account(email = email, password = pass))
+                    dao.insertAccount(
+                        Account(
+                            firstName = first,
+                            lastName = last,
+                            email = email,
+                            password = pass
+                        )
+                    )
 
                     // CEK HASILNYA di LOG
                     val acc = dao.getAccountByEmail(email)
