@@ -8,4 +8,5 @@
     <string name="text_email">Email</string>
     <string name="text_pass">Password</string>
     <string name="text_sign">Sign Up</string>
+    <string name="edit_profile"><u>Edit Profile</u></string>
 </resources>
