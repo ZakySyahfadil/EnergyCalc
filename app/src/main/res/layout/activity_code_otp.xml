@@ -186,8 +186,7 @@
             android:layout_height="50dp"
             android:text="Continue"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_filled"
-            android:textStyle="bold"
+            android:background="@drawable/button_shape"
             />
 
         <Button
@@ -195,9 +194,9 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="Get new code"
-            android:textColor="#D6B35A"
-            android:background="@drawable/button_border"
-            android:layout_marginStart="20dp"
+            android:textColor="#DABE81"
+            android:background="@drawable/button_shape5"
+            android:layout_marginStart="22dp"
             />
     </LinearLayout>
 

@@ -24,8 +24,8 @@
         android:text="@string/text_log"
         android:textStyle="bold"
         android:textSize="32sp"
-        android:layout_marginTop="160dp"
-        android:layout_marginStart="35dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="26dp"
         android:textColor="@color/black"
         android:layout_alignParentStart="true" />
 
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logText"
-        android:layout_marginStart="35dp"
+        android:layout_marginStart="26dp"
         android:layout_marginTop="10dp"
         android:text="Email or Telephone Number"
         android:textColor="@color/black"
@@ -44,17 +44,17 @@
     <!-- Email input -->
     <EditText
         android:id="@+id/inputEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
         android:hint="Enter your email or telephone number"
         android:inputType="text"
         android:layout_below="@+id/emailLabel"
-        android:textColor="@color/black"
+        android:textColor="#AAAAAA"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/edittext_background"
-        android:textColorHint="#888888"
+        android:textColorHint="#AAAAAA"
+        android:layout_marginHorizontal="26dp"
         android:padding="12dp" />
 
     <!-- Email Error -->
@@ -97,22 +97,21 @@
         android:textColor="@color/black"
         android:layout_below="@+id/inputEmail"
         android:layout_marginTop="35dp"
-        android:layout_marginStart="35dp" />
+        android:layout_marginStart="26dp" />
 
     <!-- Password input -->
     <EditText
         android:id="@+id/inputPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
         android:hint="Enter your password"
         android:inputType="textPassword"
         android:layout_below="@+id/passLabel"
-        android:textColor="@color/black"
+        android:textColorHint="#AAAAAA"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="26dp"
         android:background="@drawable/edittext_background"
-        android:textColorHint="#888888"
         android:padding="12dp" />
 
     <!-- Password Error -->
@@ -158,21 +157,21 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
             android:text="@string/text_log"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_filled"
-            android:textStyle="bold" />
+            android:background="@drawable/button_shape"
+            />
 
         <Button
             android:id="@+id/btnForgot"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
             android:text="Forgot Pass?"
             android:textColor="#D6B35A"
-            android:background="@drawable/button_border"
-            android:layout_marginStart="20dp" />
+            android:background="@drawable/button_shape5"
+            android:layout_marginStart="22dp" />
     </LinearLayout>
 
     <!-- Text: Don’t have account -->
@@ -190,15 +189,15 @@
     <!-- Sign Up button -->
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
         android:text="Sign Up"
         android:textColor="#D6B35A"
-        android:background="@drawable/button_border"
+        android:background="@drawable/button_shape5"
         android:textStyle="bold"
         android:layout_below="@id/dontHaveAcc"
         android:layout_marginTop="18dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="26dp"/>
 
 </RelativeLayout>

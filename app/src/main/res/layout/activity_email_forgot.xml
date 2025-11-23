@@ -53,17 +53,17 @@
 
     <EditText
         android:id="@+id/emailedit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
         android:hint="Enter your email"
         android:inputType="textEmailAddress"
         android:layout_below="@id/text"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:background="@drawable/edittext_background"
-        android:textColor="@color/black"
-        android:textColorHint="#888888"
+        android:layout_marginHorizontal="26dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_shape4"
+        android:textColor="#AAAAAA"
+        android:textColorHint="#AAAAAA"
         android:padding="12dp"
         />
 
@@ -97,12 +97,12 @@
 
     <Button
         android:id="@+id/buttonSendCode"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
         android:layout_below="@id/emailedit"
         android:layout_marginTop="40dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginHorizontal="26dp"
+        android:layout_centerHorizontal="true"
         android:text="Send a Code"
-        android:background="@drawable/button_filled"/>
+        android:background="@drawable/button_shape"/>
 </RelativeLayout>
