@@ -40,10 +40,7 @@ class changeName : AppCompatActivity() {
 
 
         val btn_back = findViewById<ImageView>(R.id.btn_back)
-        btn_back.setOnClickListener {
-            val intent = Intent(this, settingActivity::class.java)
-            startActivity(intent)
-        }
+        btn_back.setOnClickListener { finish()}
     }
 
     // ✔ sekarang mengembalikan Boolean

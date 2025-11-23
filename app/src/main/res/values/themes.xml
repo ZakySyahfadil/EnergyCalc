@@ -6,8 +6,6 @@
         <item name="colorPrimaryVariant">#DA8181</item>
         <item name="colorOnPrimary">@android:color/white</item>
         <item name="colorOnError">@color/red</item>
-        <item name="colorAccent">@color/Accent</item>
-
 
         <!-- Nonaktifkan dark mode otomatis -->
         <item name="android:forceDarkAllowed">false</item>

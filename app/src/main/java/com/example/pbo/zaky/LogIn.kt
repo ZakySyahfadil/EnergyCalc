@@ -82,7 +82,6 @@ class LogIn : AppCompatActivity() {
                 }
             }
         }
-        account
 
         // Forgot Password
         btnForgot.setOnClickListener {
