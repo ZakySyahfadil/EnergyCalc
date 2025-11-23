@@ -41,7 +41,7 @@ class changeName : AppCompatActivity() {
 
         val btn_back = findViewById<ImageView>(R.id.btn_back)
         btn_back.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, settingActivity::class.java)
             startActivity(intent)
         }
     }

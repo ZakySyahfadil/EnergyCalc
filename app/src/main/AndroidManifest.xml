@@ -12,13 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
         <activity
-            android:name=".Alim.ChangePassword"
+            android:name=".zaky.Main_Page_Calculate"
             android:exported="false" />
         <activity
-            android:name=".Alim.ChangeName"
-            android:exported="false" />
-        <activity
-            android:name=".Alim.settingActivity"
+            android:name=".zaky.Main_Page"
             android:exported="false" />
         <activity
             android:name=".zaky.EmailForgot"
@@ -45,7 +42,7 @@
             android:name=".zaky.WelcomePage"
             android:exported="false" />
         <activity
-            android:name=".zaky.Start"
+            android:name=".zaky.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
