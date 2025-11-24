@@ -29,6 +29,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_back"
+        android:text="@string/app_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_back"
         android:text="Ready to update your profile?"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
@@ -75,8 +87,6 @@
         android:textColor="@color/white"
         android:background="@drawable/button_shape2"
         android:id="@+id/btn3"
-        app:backgroundTint="@null"
-        app:rippleColor="@null"
         />
 
 </RelativeLayout>
