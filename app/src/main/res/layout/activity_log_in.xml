@@ -68,7 +68,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginTop="4dp"
         android:text="Please enter your email."
-        android:textColor="#FF0000"
+        android:textColor="#DA8181"
         android:textSize="12sp"
         android:visibility="gone"
         />
@@ -83,7 +83,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginTop="4dp"
         android:text="Email not registered"
-        android:textColor="#FF0000"
+        android:textColor="#DA8181"
         android:textSize="12sp"
         android:visibility="gone"
         />
@@ -127,7 +127,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginTop="4dp"
         android:text="Please enter your Password."
-        android:textColor="#FF0000"
+        android:textColor="#DA8181"
         android:textSize="12sp"
         android:visibility="gone"
         />
@@ -142,7 +142,7 @@
         android:layout_marginEnd="35dp"
         android:layout_marginTop="4dp"
         android:text="Incorrect password, please try again."
-        android:textColor="#FF0000"
+        android:textColor="#DA8181"
         android:textSize="12sp"
         android:visibility="gone"
         />
@@ -165,7 +165,6 @@
             android:text="@string/text_log"
             android:textColor="#FFFFFF"
             android:background="@drawable/button_filled"
-            android:textStyle="bold"
             />
 
         <Button
@@ -173,7 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="Forgot Pass?"
-            android:textColor="#D6B35A"
+            android:textColor="#DABE81"
             android:background="@drawable/button_border"
             android:layout_marginStart="20dp" />
     </LinearLayout>
@@ -198,7 +197,6 @@
         android:text="Sign Up"
         android:textColor="#D6B35A"
         android:background="@drawable/button_border"
-        android:textStyle="bold"
         android:layout_below="@id/dontHaveAcc"
         android:layout_marginTop="18dp"
         android:layout_marginStart="35dp"
