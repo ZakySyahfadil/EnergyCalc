@@ -1,5 +1,6 @@
 package com.example.pbo.zaky
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -37,5 +38,11 @@ class WelcomePage : AppCompatActivity() {
             fullNameFromPref != null -> fullNameFromPref
             else -> "User"
         }
+        //lanjut ke main page
+        window.decorView.postDelayed({
+            startActivity(Intent(this, Main_Page::class.java))
+            finish()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }, 2000) // 2000 ms = 2 detik
     }
 }

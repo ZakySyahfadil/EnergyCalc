@@ -26,10 +26,11 @@
         />
 
     <TextView
+        android:id="@+id/tv_nama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_back"
-        android:text="@string/app_name"
+        android:text="@string/text_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
         android:textSize="25dp"

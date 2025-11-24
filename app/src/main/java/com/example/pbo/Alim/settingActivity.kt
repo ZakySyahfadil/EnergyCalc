@@ -7,73 +7,89 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.TextView
-import android.widget.ImageView
-import com.example.pbo.Alim.ChangeName
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import com.example.pbo.R
 import com.example.pbo.zaky.LogIn
 import com.google.android.material.button.MaterialButton
 
 class settingActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_setting)
 
-        val btnChangeName = findViewById<Button>(R.id.btnChangeName)
-        btnChangeName.setOnClickListener {
-            val intent = Intent(this, ChangeName::class.java)
-            startActivity(intent)
+        val tvNama = findViewById<TextView>(R.id.tv_nama)
 
+        val nameFromIntent = intent.getStringExtra("USER_NAME")
+
+        val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
+        val firstname = sharedPref.getString("firstname", null)
+        val lastname = sharedPref.getString("lastname", null)
+
+        val fullNameFromPref = if (firstname != null && lastname != null) {
+            "$firstname $lastname".trim()
+        } else null
+
+        tvNama.text = when {
+            nameFromIntent != null -> nameFromIntent
+            fullNameFromPref != null -> fullNameFromPref
+            else -> "Guest"
         }
 
-        val btnChangePassword = findViewById<Button>(R.id.btn2)
-        btnChangePassword.setOnClickListener {
-            val intent = Intent(this, ChangePassword::class.java)
-            startActivity(intent)
+        // Button Change Name
+        findViewById<Button>(R.id.btnChangeName).setOnClickListener {
+            startActivity(Intent(this, ChangeName::class.java))
         }
 
-        val btnLogOut = findViewById<Button>(R.id.btn3)
-        btnLogOut.setOnClickListener {
-            val dialog = Dialog(this, R.style.DialogNoBorder)
-            dialog.setContentView(R.layout.dialog_logout_confirm)
-            dialog.setCancelable(true) // bisa dismiss dengan tap luar
+        // Button Change Password
+        findViewById<Button>(R.id.btn2).setOnClickListener {
+            startActivity(Intent(this, ChangePassword::class.java))
+        }
 
-            val btnYes = dialog.findViewById<MaterialButton>(R.id.btnYes)
-            val btnNo = dialog.findViewById<MaterialButton>(R.id.btnNo)
+        // Button Log Out
+        findViewById<Button>(R.id.btn3).setOnClickListener {
+            showLogoutDialog()
+        }
 
-            btnYes.setOnClickListener {
-                dialog.dismiss()
-                // Lakukan proses logout di sini
-                logoutUser() // fungsi kamu sendiri
-            }
-
-            btnNo.setOnClickListener {
-                dialog.dismiss() // batal logout
-            }
-
-            dialog.window?.apply {
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                val params = attributes
-                params.gravity = Gravity.CENTER
-                attributes = params
-            }
-
-            dialog.show()
+        // Tombol back
+        findViewById<android.widget.ImageView>(R.id.btn_back).setOnClickListener {
+            finish()
         }
     }
-    private fun logoutUser() {
-        // 1. Hapus semua data login (SharedPreferences, Session, dll)
-        val sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-        sharedPref.edit().clear().apply()
 
-        // 2. Pindah ke halaman Login + hapus semua activity sebelumnya
-        val intent = Intent(this, LogIn::class.java) // ganti LoginActivity dengan nama class login kamu
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish() // tutup settingActivity
+    private fun showLogoutDialog() {
+        val dialog = Dialog(this, R.style.DialogNoBorder)
+        dialog.setContentView(R.layout.dialog_logout_confirm)
+        dialog.setCancelable(true)
+
+        val btnYes = dialog.findViewById<MaterialButton>(R.id.btnYes)
+        val btnNo = dialog.findViewById<MaterialButton>(R.id.btnNo)
+
+        btnYes.setOnClickListener {
+            dialog.dismiss()
+            logoutUser()
+        }
+        btnNo.setOnClickListener { dialog.dismiss() }
+
+        dialog.window?.apply {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            attributes.gravity = Gravity.CENTER
+        }
+        dialog.show()
+    }
+
+    private fun logoutUser() {
+        // Hapus semua data login
+        getSharedPreferences("UserData", Context.MODE_PRIVATE).edit().clear().apply()
+        getSharedPreferences("user_session", Context.MODE_PRIVATE).edit().clear().apply()
+
+        startActivity(Intent(this, LogIn::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
+        finish()
     }
 }
