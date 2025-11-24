@@ -1,7 +1,6 @@
 package com.example.pbo.zaky
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
@@ -10,77 +9,70 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.pbo.zaky.CodeOtp
+import androidx.lifecycle.lifecycleScope
 import com.example.pbo.R
+import com.example.pbo.data.AppDatabase
+import kotlinx.coroutines.launch
 
 class EmailForgot : AppCompatActivity() {
-
-    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_email_forgot)
 
-        // WAJIB sama dengan Login & SignUp3
-        prefs = getSharedPreferences("UserData", MODE_PRIVATE)
-
         val btnBack = findViewById<ImageView>(R.id.btnBack)
         val emailInput = findViewById<EditText>(R.id.emailedit)
 
-        val signFail = findViewById<TextView>(R.id.signfail)       // Email kosong
+        val signFail = findViewById<TextView>(R.id.signfail)       // Email kosong / not registered
         val emailFormat = findViewById<TextView>(R.id.emailformat) // Format salah
 
         val btnSendCode = findViewById<Button>(R.id.buttonSendCode)
 
-        btnBack.setOnClickListener {
-            finish()
-        }
+        btnBack.setOnClickListener { finish() }
 
         btnSendCode.setOnClickListener {
-
             val email = emailInput.text.toString().trim()
 
-            // Reset error
+            // Reset semua error
             signFail.visibility = TextView.GONE
             emailFormat.visibility = TextView.GONE
-
-            var valid = true
 
             // 1️⃣ Email kosong
             if (email.isEmpty()) {
                 signFail.text = "Please enter your email."
                 signFail.visibility = TextView.VISIBLE
-                valid = false
+                return@setOnClickListener
             }
 
             // 2️⃣ Format email salah
-            else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 emailFormat.text = "Invalid email format."
                 emailFormat.visibility = TextView.VISIBLE
-                valid = false
+                return@setOnClickListener
             }
 
-            // 3️⃣ Email tidak terdaftar (HARUS terdaftar untuk forgot pass)
-            else if (!emailRegistered(email)) {
-                signFail.text = "Email not registered."
-                signFail.visibility = TextView.VISIBLE
-                valid = false
-            }
+            // 3️⃣ Cek email terdaftar di database
+            lifecycleScope.launch {
+                val db = AppDatabase.getDatabase(this@EmailForgot)
+                val account = db.accountDao().getAccountByEmail(email)
 
-            // Jika semua valid → lanjut ke OTP
-            if (valid) {
-                val intent = Intent(this, CodeOtp::class.java)
-                intent.putExtra("email", email)
-                intent.putExtra("mode", "forgot") // OPTIONAL: kalau kamu mau bedakan mode signup/forgot
-                startActivity(intent)
+                if (account == null) {
+                    // Email tidak terdaftar
+                    runOnUiThread {
+                        signFail.text = "Email not registered."
+                        signFail.visibility = TextView.VISIBLE
+                    }
+                } else {
+                    // Email valid dan terdaftar → lanjut ke OTP
+                    runOnUiThread {
+                        val intent = Intent(this@EmailForgot, CodeOtp::class.java)
+                        intent.putExtra("email", email)
+                        intent.putExtra("mode", "forgot")
+                        startActivity(intent)
+                    }
+                }
             }
         }
-    }
-
-    // 🔥 Cek apakah email terdaftar
-    private fun emailRegistered(email: String): Boolean {
-        val users = prefs.getStringSet("USED_EMAILS", emptySet()) ?: emptySet()
-        return users.contains(email)
     }
 }

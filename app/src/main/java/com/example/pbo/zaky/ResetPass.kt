@@ -9,7 +9,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.pbo.R
+import com.example.pbo.data.AppDatabase
+import kotlinx.coroutines.launch
 
 class ResetPass : AppCompatActivity() {
 
@@ -18,11 +21,14 @@ class ResetPass : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_reset_pass)
 
+        // Ambil email user dari Intent
+        val userEmail = intent.getStringExtra("email") ?: ""
+
         // Tombol back
         val btnBack = findViewById<ImageView>(R.id.btnBack)
         btnBack.setOnClickListener { finish() }
 
-        // Input
+        // Input password
         val inputNewPass = findViewById<EditText>(R.id.inputEmail) // new password
         val inputConfirm = findViewById<EditText>(R.id.newConfirm) // confirm new password
 
@@ -67,23 +73,30 @@ class ResetPass : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // 4️⃣ Cek confirm password benar atau tidak
+            // 4️⃣ Cek confirm password sama dengan new password
             if (newPass != confirmPass) {
                 tvIncorrectConfirm.visibility = TextView.VISIBLE
                 return@setOnClickListener
             }
 
-            // 5️⃣ Semua benar → simpan new password ke SharedPreferences
-            val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE).edit()
-            sharedPref.putString("password", newPass)
-            sharedPref.apply()
+            // 5️⃣ Semua valid → update password di Room Database
+            lifecycleScope.launch {
+                val db = AppDatabase.getDatabase(this@ResetPass)
+                db.accountDao().updatePasswordByEmail(userEmail, newPass)
 
-            Toast.makeText(this, "Password has been reset successfully.", Toast.LENGTH_SHORT).show()
+                runOnUiThread {
+                    Toast.makeText(
+                        this@ResetPass,
+                        "Password has been reset successfully.",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-            // 6️⃣ Ke halaman LogIn
-            val intent = Intent(this, LogIn::class.java)
-            startActivity(intent)
-            finish()
+                    // 6️⃣ Pindah ke halaman LogIn
+                    val intent = Intent(this@ResetPass, LogIn::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
     }
 }
