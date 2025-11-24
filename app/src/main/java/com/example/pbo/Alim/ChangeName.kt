@@ -12,7 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-class changeName : AppCompatActivity() {
+class ChangeName : AppCompatActivity() {
 
     private lateinit var firstName: EditText
     private lateinit var lastName: EditText
