@@ -9,5 +9,6 @@ data class Account(
     val firstName: String,
     val lastName: String,
     val email: String,
+    val phoneNumber: String,   // ← Tambahkan ini
     val password: String
 )

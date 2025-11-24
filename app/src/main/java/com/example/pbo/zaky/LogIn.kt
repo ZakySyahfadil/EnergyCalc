@@ -28,29 +28,32 @@ class LogIn : AppCompatActivity() {
 
         val tvEmailError = findViewById<TextView>(R.id.tvEmailError)
         val tvPasswordError = findViewById<TextView>(R.id.tvPassError)
+        val tvEmailRegist = findViewById<TextView>(R.id.tvEmailRegist)
+        val tvPassIncorrect = findViewById<TextView>(R.id.tvPassIncorrect)
 
         btnLogin.setOnClickListener {
 
             val email = inputEmail.text.toString().trim().lowercase()
             val pass = inputPass.text.toString().trim()
 
+            // Sembunyikan SEMUA error setiap klik login
             tvEmailError.visibility = View.GONE
             tvPasswordError.visibility = View.GONE
+            tvEmailRegist.visibility = View.GONE
+            tvPassIncorrect.visibility = View.GONE
 
             // Validasi input kosong
             if (email.isEmpty()) {
-                tvEmailError.text = "Please enter your email."
                 tvEmailError.visibility = View.VISIBLE
                 return@setOnClickListener
             }
 
             if (pass.isEmpty()) {
-                tvPasswordError.text = "Please enter your password."
                 tvPasswordError.visibility = View.VISIBLE
                 return@setOnClickListener
             }
 
-            // 🔥 CEK EMAIL & PASSWORD LEWAT ROOM
+            // CEK ke Room DB
             lifecycleScope.launch {
                 val db = AppDatabase.getDatabase(this@LogIn)
                 val dao = db.accountDao()
@@ -59,21 +62,19 @@ class LogIn : AppCompatActivity() {
 
                 if (account == null) {
                     runOnUiThread {
-                        tvEmailError.text = "Account not found."
-                        tvEmailError.visibility = View.VISIBLE
+                        tvEmailRegist.visibility = View.VISIBLE
                     }
                     return@launch
                 }
 
                 if (account.password != pass) {
                     runOnUiThread {
-                        tvPasswordError.text = "Incorrect password."
-                        tvPasswordError.visibility = View.VISIBLE
+                        tvPassIncorrect.visibility = View.VISIBLE
                     }
                     return@launch
                 }
 
-                // Jika login berhasil → masuk ke WelcomePage
+                // Login berhasil
                 runOnUiThread {
                     val intent = Intent(this@LogIn, WelcomePage::class.java)
                     intent.putExtra("USER_NAME", "${account.firstName} ${account.lastName}")

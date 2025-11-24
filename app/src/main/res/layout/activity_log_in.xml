@@ -47,9 +47,10 @@
         android:layout_width="360dp"
         android:layout_height="60dp"
         android:hint="Enter your email or telephone number"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:layout_below="@+id/emailLabel"
-        android:textColor="#AAAAAA"
+        android:textSize="16dp"
+        android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/edittext_background"
@@ -106,7 +107,9 @@
         android:layout_height="60dp"
         android:hint="Enter your password"
         android:inputType="textPassword"
+        android:textSize="16dp"
         android:layout_below="@+id/passLabel"
+        android:textColor="@color/black"
         android:textColorHint="#AAAAAA"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
@@ -157,21 +160,22 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="170dp"
-            android:layout_height="60dp"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
             android:text="@string/text_log"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_shape"
+            android:background="@drawable/button_filled"
+            android:textStyle="bold"
             />
 
         <Button
             android:id="@+id/btnForgot"
-            android:layout_width="170dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
             android:text="Forgot Pass?"
             android:textColor="#D6B35A"
-            android:background="@drawable/button_shape5"
-            android:layout_marginStart="22dp" />
+            android:background="@drawable/button_border"
+            android:layout_marginStart="20dp" />
     </LinearLayout>
 
     <!-- Text: Don’t have account -->
@@ -189,15 +193,15 @@
     <!-- Sign Up button -->
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="360dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:text="Sign Up"
         android:textColor="#D6B35A"
-        android:background="@drawable/button_shape5"
+        android:background="@drawable/button_border"
         android:textStyle="bold"
         android:layout_below="@id/dontHaveAcc"
         android:layout_marginTop="18dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="26dp"/>
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"/>
 
 </RelativeLayout>
