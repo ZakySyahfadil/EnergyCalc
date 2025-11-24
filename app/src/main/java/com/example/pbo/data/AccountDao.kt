@@ -17,5 +17,9 @@ interface AccountDao {
 
     @Query("SELECT * FROM accounts WHERE email = :email AND password = :password LIMIT 1")
     suspend fun login(email: String, password: String): Account?
+
+    @Query("UPDATE accounts SET password = :newPassword WHERE email = :email")
+    suspend fun updatePasswordByEmail(email: String, newPassword: String)
+
 }
 
