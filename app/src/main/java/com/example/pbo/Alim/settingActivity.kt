@@ -24,9 +24,11 @@ class settingActivity : AppCompatActivity() {
 
         val tvNama = findViewById<TextView>(R.id.tv_nama)
 
+        // Ambil dari Intent (jika ada)
         val nameFromIntent = intent.getStringExtra("USER_NAME")
 
-        val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
+        // Ganti UserData → USER_PREFS
+        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
         val firstname = sharedPref.getString("firstname", null)
         val lastname = sharedPref.getString("lastname", null)
 
@@ -40,22 +42,22 @@ class settingActivity : AppCompatActivity() {
             else -> "Guest"
         }
 
-        // Button Change Name
+        // Tombol Change Name
         findViewById<Button>(R.id.btnChangeName).setOnClickListener {
             startActivity(Intent(this, ChangeName::class.java))
         }
 
-        // Button Change Password
+        // Tombol Change Password
         findViewById<Button>(R.id.btn2).setOnClickListener {
             startActivity(Intent(this, ChangePassword::class.java))
         }
 
-        // Button Log Out
+        // Tombol Logout
         findViewById<Button>(R.id.btn3).setOnClickListener {
             showLogoutDialog()
         }
 
-        // Tombol back
+        // Tombol Back
         findViewById<android.widget.ImageView>(R.id.btn_back).setOnClickListener {
             finish()
         }
@@ -79,13 +81,13 @@ class settingActivity : AppCompatActivity() {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             attributes.gravity = Gravity.CENTER
         }
+
         dialog.show()
     }
 
     private fun logoutUser() {
         // Hapus semua data login
-        getSharedPreferences("UserData", Context.MODE_PRIVATE).edit().clear().apply()
-        getSharedPreferences("user_session", Context.MODE_PRIVATE).edit().clear().apply()
+        getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE).edit().clear().apply()
 
         startActivity(Intent(this, LogIn::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

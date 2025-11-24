@@ -30,20 +30,22 @@ class LogIn : AppCompatActivity() {
         val tvPasswordError = findViewById<TextView>(R.id.tvPassError)
         val tvEmailRegist = findViewById<TextView>(R.id.tvEmailRegist)
         val tvPassIncorrect = findViewById<TextView>(R.id.tvPassIncorrect)
+        val tvTelephoneRegist = findViewById<TextView>(R.id.tvTelephoneRegist)
 
         btnLogin.setOnClickListener {
 
-            val email = inputEmail.text.toString().trim().lowercase()
+            val input = inputEmail.text.toString().trim()
             val pass = inputPass.text.toString().trim()
 
-            // Sembunyikan SEMUA error setiap klik login
+            // Sembunyikan SEMUA error
             tvEmailError.visibility = View.GONE
             tvPasswordError.visibility = View.GONE
             tvEmailRegist.visibility = View.GONE
             tvPassIncorrect.visibility = View.GONE
+            tvTelephoneRegist.visibility = View.GONE  // tambahkan TextView ini di XML
 
             // Validasi input kosong
-            if (email.isEmpty()) {
+            if (input.isEmpty()) {
                 tvEmailError.visibility = View.VISIBLE
                 return@setOnClickListener
             }
@@ -53,16 +55,23 @@ class LogIn : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // CEK ke Room DB
             lifecycleScope.launch {
                 val db = AppDatabase.getDatabase(this@LogIn)
                 val dao = db.accountDao()
 
-                val account = dao.getAccountByEmail(email)
+                val account = if (input.contains("@")) {
+                    dao.getAccountByEmail(input.lowercase())
+                } else {
+                    dao.getAccountByPhone(input)
+                }
 
                 if (account == null) {
                     runOnUiThread {
-                        tvEmailRegist.visibility = View.VISIBLE
+                        if (input.contains("@")) {
+                            tvEmailRegist.visibility = View.VISIBLE
+                        } else {
+                            tvTelephoneRegist.visibility = View.VISIBLE
+                        }
                     }
                     return@launch
                 }
@@ -76,6 +85,15 @@ class LogIn : AppCompatActivity() {
 
                 // Login berhasil
                 runOnUiThread {
+
+                    // 🟦 SIMPAN DATA USER KE SHAREDPREFERENCES
+                    val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE).edit()
+                    prefs.putString("LOGIN_KEY", input)
+                    prefs.putString("firstname", account.firstName)
+                    prefs.putString("lastname", account.lastName)
+                    prefs.apply()
+
+                    // 🟩 LANJUT KE WELCOME PAGE
                     val intent = Intent(this@LogIn, WelcomePage::class.java)
                     intent.putExtra("USER_NAME", "${account.firstName} ${account.lastName}")
                     startActivity(intent)

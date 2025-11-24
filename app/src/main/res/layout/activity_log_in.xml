@@ -88,6 +88,20 @@
         android:visibility="gone"
         />
 
+    <!-- Number not Register -->
+    <TextView
+        android:id="@+id/tvTelephoneRegist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputEmail"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="4dp"
+        android:text="Telephone number not registered"
+        android:textColor="#DA8181"
+        android:textSize="12sp"
+        android:visibility="gone"/>
+
     <!-- Password label -->
     <TextView
         android:id="@+id/passLabel"

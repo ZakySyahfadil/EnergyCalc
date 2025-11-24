@@ -20,7 +20,7 @@ class WelcomePage : AppCompatActivity() {
         val nameFromIntent = intent.getStringExtra("USER_NAME")
 
         // Ambil nama dari SharedPreferences (untuk LogIn)
-        val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
         val firstname = sharedPref.getString("firstname", null)
         val lastname = sharedPref.getString("lastname", null)
 
