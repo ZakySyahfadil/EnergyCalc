@@ -35,23 +35,5 @@ class MainPage : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //Logika switch
-        val toggle = findViewById<Switch>(R.id.switch_toggle)
-        val warning = findViewById<TextView>(R.id.text_view)
-
-        toggle.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                warning.visibility = View.GONE   // switch ON → text hilang
-            } else {
-                warning.visibility = View.VISIBLE // switch OFF → text muncul
-            }
-        }
-
-        //Logika Input
-        val deviceName = findViewById<EditText>(R.id.box1)
-
-        val inputText = deviceName.text.toString()
-
-
     }
 }
