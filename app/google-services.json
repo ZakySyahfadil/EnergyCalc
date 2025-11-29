@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "876263629034",
+    "project_id": "energycalc-ffe81",
+    "storage_bucket": "energycalc-ffe81.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876263629034:android:c47f1db1739c2238c6b793",
+        "android_client_info": {
+          "package_name": "com.example.pbo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzQc7RnnCCG1-nTLCUnkzy1CHHJWasduo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
