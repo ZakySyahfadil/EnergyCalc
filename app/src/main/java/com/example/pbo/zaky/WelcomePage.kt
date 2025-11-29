@@ -16,33 +16,15 @@ class WelcomePage : AppCompatActivity() {
 
         val nameText = findViewById<TextView>(R.id.nameText)
 
-        // Ambil nama dari Intent (untuk SignUp3)
-        val nameFromIntent = intent.getStringExtra("USER_NAME")
+        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val firstname = prefs.getString("firstname", "User")
+        val lastname = prefs.getString("lastname", "")
 
-        // Ambil nama dari SharedPreferences (untuk LogIn)
-        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-        val firstname = sharedPref.getString("firstname", null)
-        val lastname = sharedPref.getString("lastname", null)
+        nameText.text = "$firstname $lastname".trim()
 
-        val fullNameFromPref = if (firstname != null && lastname != null) {
-            "$firstname $lastname"
-        } else null
-
-        // ============================
-        // PRIORITAS TAMPIL NAMA:
-        // 1. Jika ada dari Intent → tampilkan
-        // 2. Jika tidak ada → pakai SharedPreferences
-        // ============================
-        nameText.text = when {
-            nameFromIntent != null -> nameFromIntent
-            fullNameFromPref != null -> fullNameFromPref
-            else -> "User"
-        }
-        //lanjut ke main page
         window.decorView.postDelayed({
             startActivity(Intent(this, Main_Page::class.java))
             finish()
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        }, 2000) // 2000 ms = 2 detik
+        }, 2000)
     }
 }

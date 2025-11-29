@@ -94,4 +94,19 @@ class settingActivity : AppCompatActivity() {
         })
         finish()
     }
+    override fun onResume() {
+        super.onResume()
+
+        val tvNama = findViewById<TextView>(R.id.tv_nama)
+
+        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val firstname = sharedPref.getString("firstname", null)
+        val lastname = sharedPref.getString("lastname", null)
+
+        tvNama.text = if (firstname != null && lastname != null) {
+            "$firstname $lastname"
+        } else {
+            "Guest"
+        }
+    }
 }

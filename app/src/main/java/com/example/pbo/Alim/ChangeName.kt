@@ -1,16 +1,18 @@
 package com.example.pbo.Alim
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.pbo.R
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.pbo.R
+import com.example.pbo.data.AppDatabase
+import kotlinx.coroutines.launch
 
 class ChangeName : AppCompatActivity() {
 
@@ -28,22 +30,19 @@ class ChangeName : AppCompatActivity() {
         lastName = findViewById(R.id.lastname)
         errorText = findViewById(R.id.enteryourname)
         saveButton = findViewById(R.id.savebutton)
-
         errorText.visibility = View.GONE
 
-        // ✔ Listener hanya satu kali
+        // Tombol simpan
         saveButton.setOnClickListener {
             if (validateName()) {
                 showConfirmDialog()
             }
         }
 
-
-        val btn_back = findViewById<ImageView>(R.id.btn_back)
-        btn_back.setOnClickListener { finish()}
+        // Tombol Back
+        findViewById<ImageView>(R.id.btn_back).setOnClickListener { finish() }
     }
 
-    // ✔ sekarang mengembalikan Boolean
     private fun validateName(): Boolean {
         val first = firstName.text.toString().trim()
         val last = lastName.text.toString().trim()
@@ -58,30 +57,40 @@ class ChangeName : AppCompatActivity() {
     }
 
     private fun showConfirmDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_confirm, null)
-
+        val view = layoutInflater.inflate(R.layout.dialog_confirm, null)
         val dialog = AlertDialog.Builder(this)
-            .setView(dialogView)
+            .setView(view)
             .setCancelable(false)
             .create()
 
-        val btnYes = dialogView.findViewById<Button>(R.id.btnYes)
-        val btnNo = dialogView.findViewById<Button>(R.id.btnNo)
+        val btnYes = view.findViewById<Button>(R.id.btnYes)
+        val btnNo = view.findViewById<Button>(R.id.btnNo)
 
-        btnNo.setOnClickListener {
-            dialog.dismiss()
-        }
+        // Batalkan
+        btnNo.setOnClickListener { dialog.dismiss() }
 
+        // Konfirmasi
         btnYes.setOnClickListener {
-            // Simpan nama ke SharedPreferences
             val first = firstName.text.toString().trim()
             val last = lastName.text.toString().trim()
 
-            val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-            sharedPref.edit()
+            val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+            val loginKey = prefs.getString("LOGIN_KEY", null)
+
+            // Simpan ke SharedPreferences
+            prefs.edit()
                 .putString("firstname", first)
                 .putString("lastname", last)
                 .apply()
+
+            // 🔥 UPDATE NAMA DI DATABASE
+            if (loginKey != null) {
+                lifecycleScope.launch {
+                    val db = AppDatabase.getDatabase(this@ChangeName)
+                    val dao = db.accountDao()
+                    dao.updateName(loginKey, first, last)
+                }
+            }
 
             dialog.dismiss()
             showSuccessDialog()
@@ -93,33 +102,14 @@ class ChangeName : AppCompatActivity() {
 
     private fun showSuccessDialog() {
         val view = layoutInflater.inflate(R.layout.notif_success, null)
-
         val dialog = AlertDialog.Builder(this)
             .setView(view)
-            .setCancelable(true)   // ⬅ bisa ditekan di mana saja
+            .setCancelable(true)
             .create()
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
 
-        // Ketika dialog ditutup → kembali ke halaman sebelumnya
-        dialog.setOnDismissListener {
-            finish()  // kembali ke activity sebelumnya
-        }
-    }
-    override fun onResume() {
-        super.onResume()
-
-        val tvNama = findViewById<TextView>(R.id.tv_nama)
-
-        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-        val firstname = sharedPref.getString("firstname", null)
-        val lastname = sharedPref.getString("lastname", null)
-
-        tvNama.text = if (firstname != null && lastname != null) {
-            "$firstname $lastname"
-        } else {
-            "Guest"
-        }
+        dialog.setOnDismissListener { finish() }
     }
 }
