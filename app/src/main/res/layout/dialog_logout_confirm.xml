@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     app:cardCornerRadius="20dp"
     app:cardElevation="12dp"
-    app:cardBackgroundColor="#FFF8E1">
+    app:cardBackgroundColor="#FFFFFF">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,12 +18,11 @@
 
         <!-- Judul kecil -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Notification"
-            android:textSize="13sp"
             android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <!-- Pesan utama -->
         <TextView
