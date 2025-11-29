@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
         <activity
-            android:name=".zaky.Main_Page_Calculate"
+            android:name=".Nazwar.Main_Page_Calculate"
             android:exported="false" />
         <activity
-            android:name=".zaky.Main_Page"
+            android:name=".Nazwar.MainPage"
             android:exported="false" />
         <activity
             android:name=".zaky.EmailForgot"

@@ -1,4 +1,4 @@
-package com.example.pbo.zaky
+package com.example.pbo.Nazwar
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

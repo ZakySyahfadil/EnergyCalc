@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".zaky.Main_Page">
+    tools:context=".Nazwar.MainPage">
 
-
+    <!-- Your Name -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,6 +19,7 @@
         android:textSize="32sp"
     />
 
+    <!-- Edit Profile -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,6 +29,7 @@
         android:layout_alignRight="@+id/name"
     />
 
+    <!-- Background Image -->
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,6 +40,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="100dp" />
 
+    <!-- Button History -->
     <ImageView
         android:id="@+id/icon1"
         android:layout_width="wrap_content"
@@ -52,7 +55,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/button1"
         android:background="@drawable/btn1_main_page"
-        app:backgroundTint="null"
+        app:backgroundTint="@null"
         android:layout_below="@id/icon1"
         android:text="History"
         android:textAllCaps="false"
@@ -60,6 +63,7 @@
         android:textColor="@color/black"
         />
 
+    <!-- Button Calculate -->
     <ImageView
         android:id="@+id/icon2"
         android:layout_width="wrap_content"
@@ -73,9 +77,9 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
+        android:id="@+id/button_calculate"
         android:background="@drawable/btn2_main_page"
-        app:backgroundTint="null"
+        app:backgroundTint="@null"
         android:layout_below="@id/icon2"
         android:text="Calculate"
         android:textAllCaps="false"
