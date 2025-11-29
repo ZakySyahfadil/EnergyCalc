@@ -84,7 +84,8 @@
                 android:textSize="17dp"
                 android:paddingLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="@color/light_white" />
+                android:backgroundTint="@color/light_white"
+                android:inputType="number"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,7 +161,8 @@
                         android:textSize="17dp"
                         android:paddingLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:backgroundTint="@color/light_white" />
+                        android:backgroundTint="@color/light_white"
+                        android:inputType="number"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -186,7 +188,8 @@
                         android:textSize="17dp"
                         android:paddingLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:backgroundTint="@color/light_white" />
+                        android:backgroundTint="@color/light_white"
+                        android:inputType="number"/>
                 </LinearLayout>
 
             </LinearLayout>
