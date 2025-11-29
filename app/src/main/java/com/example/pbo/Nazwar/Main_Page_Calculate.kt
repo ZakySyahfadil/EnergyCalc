@@ -26,10 +26,10 @@ class Main_Page_Calculate : AppCompatActivity() {
         }
 
         val toggle = findViewById<Switch>(R.id.switch_toggle)
-        val warning = findViewById<LinearLayout>(R.id.text_view)
+        val extraFields = findViewById<LinearLayout>(R.id.text_view)
 
         toggle.setOnCheckedChangeListener { _, isChecked ->
-            warning.visibility = if (isChecked) View.GONE else View.VISIBLE
+            extraFields.visibility = if (isChecked) View.GONE else View.VISIBLE
         }
 
         val box1 = findViewById<EditText>(R.id.box1)
@@ -41,7 +41,6 @@ class Main_Page_Calculate : AppCompatActivity() {
 
         buttonCalculate.setOnClickListener {
 
-            // Ambil input
             val name = box1.text.toString().trim()
             val power = box2.text.toString().trim()
             val durationText = box3.text.toString().trim()
@@ -49,7 +48,7 @@ class Main_Page_Calculate : AppCompatActivity() {
 
             var valid = true
 
-            // Validasi
+            // Validate basic fields
             if (name.isEmpty()) {
                 box1.error = "Please enter your device name"
                 valid = false
@@ -60,6 +59,7 @@ class Main_Page_Calculate : AppCompatActivity() {
                 valid = false
             }
 
+            // Validate weekly data when switch OFF
             if (!toggle.isChecked) {
 
                 if (durationText.isEmpty() && frequencyText.isEmpty()) {
@@ -77,11 +77,8 @@ class Main_Page_Calculate : AppCompatActivity() {
                 }
             }
 
-
-            // Stop kalau ada error
             if (!valid) return@setOnClickListener
 
-            // Hitung duration & frequency
             val isAlwaysOn = toggle.isChecked
             val duration: Int
             val frequency: Int
@@ -94,12 +91,12 @@ class Main_Page_Calculate : AppCompatActivity() {
                 frequency = frequencyText.toInt()
             }
 
-            // Pindah halaman
             val intent = Intent(this, Main_Page_Calculate_Results::class.java)
             intent.putExtra("deviceName", name)
             intent.putExtra("devicePower", power)
             intent.putExtra("duration", duration)
             intent.putExtra("frequency", frequency)
+
             startActivity(intent)
         }
     }

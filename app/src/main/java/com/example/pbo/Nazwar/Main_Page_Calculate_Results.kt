@@ -32,20 +32,20 @@ class Main_Page_Calculate_Results : AppCompatActivity() {
         deviceName.text = name
 
         val devicePower = findViewById<TextView>(R.id.AmtPower)
-        devicePower.text = "$power W"
+        devicePower.text = getString(R.string.label_power, power)
 
         val deviceDuration = findViewById<TextView>(R.id.AmtDuration)
-        deviceDuration.text = "$duration minutes"
+        deviceDuration.text = getString(R.string.label_duration, duration)
 
         val deviceFrequency = findViewById<TextView>(R.id.AmtFrequency)
-        deviceFrequency.text = "$frequency times"
+        deviceFrequency.text = getString(R.string.label_frequency, frequency)
 
         //menghitung jumlah biaya listrik per bulan
         val powerWatt = power?.toDoubleOrNull() ?: 0.0
         val durationMin = duration?.toDoubleOrNull() ?: 0.0
         val frequencyWeek = frequency?.toDoubleOrNull() ?: 0.0
 
-        // Tarif listrik per kWh (bisa kamu ubah sesuai kebutuhan)
+        // Tarif listrik per kWh
         val tariff = 1500
 
         // Perhitungan energi
