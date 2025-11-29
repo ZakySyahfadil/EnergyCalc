@@ -1,5 +1,6 @@
 package com.example.pbo.zaky
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -15,27 +16,15 @@ class WelcomePage : AppCompatActivity() {
 
         val nameText = findViewById<TextView>(R.id.nameText)
 
-        // Ambil nama dari Intent (untuk SignUp3)
-        val nameFromIntent = intent.getStringExtra("USER_NAME")
+        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val firstname = prefs.getString("firstname", "User")
+        val lastname = prefs.getString("lastname", "")
 
-        // Ambil nama dari SharedPreferences (untuk LogIn)
-        val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
-        val firstname = sharedPref.getString("firstname", null)
-        val lastname = sharedPref.getString("lastname", null)
+        nameText.text = "$firstname $lastname".trim()
 
-        val fullNameFromPref = if (firstname != null && lastname != null) {
-            "$firstname $lastname"
-        } else null
-
-        // ============================
-        // PRIORITAS TAMPIL NAMA:
-        // 1. Jika ada dari Intent → tampilkan
-        // 2. Jika tidak ada → pakai SharedPreferences
-        // ============================
-        nameText.text = when {
-            nameFromIntent != null -> nameFromIntent
-            fullNameFromPref != null -> fullNameFromPref
-            else -> "User"
-        }
+        window.decorView.postDelayed({
+            startActivity(Intent(this, Main_Page::class.java))
+            finish()
+        }, 2000)
     }
 }

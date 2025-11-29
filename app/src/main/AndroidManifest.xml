@@ -24,6 +24,9 @@
             android:name=".Nazwar.MainPage"
             android:exported="false" />
         <activity
+        android:name=".Alim.HistoryActivity"
+        android:exported="false" />
+        <activity
             android:name=".zaky.EmailForgot"
             android:exported="false" />
         <activity
@@ -48,7 +51,16 @@
             android:name=".zaky.WelcomePage"
             android:exported="false" />
         <activity
-            android:name=".zaky.MainActivity"
+            android:name=".Alim.settingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Alim.ChangeName"
+            android:exported="false" />
+        <activity
+            android:name=".Alim.ChangePassword"
+            android:exported="false" />
+        <activity
+            android:name=".zaky.Start"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

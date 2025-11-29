@@ -1,32 +1,112 @@
 package com.example.pbo.Alim
 
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import android.view.Gravity
 import android.widget.Button
 import android.widget.TextView
-import android.widget.ImageView
-import com.example.pbo.Alim.changeName
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import com.example.pbo.R
+import com.example.pbo.zaky.LogIn
+import com.google.android.material.button.MaterialButton
 
-class MainActivity : AppCompatActivity() {
+class settingActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_setting)
 
-        val btnChangeName = findViewById<Button>(R.id.btnChangeName)
-        btnChangeName.setOnClickListener {
-            val intent = Intent(this, changeName::class.java)
-            startActivity(intent)
+        val tvNama = findViewById<TextView>(R.id.tv_nama)
 
+        // Ambil dari Intent (jika ada)
+        val nameFromIntent = intent.getStringExtra("USER_NAME")
+
+        // Ganti UserData → USER_PREFS
+        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val firstname = sharedPref.getString("firstname", null)
+        val lastname = sharedPref.getString("lastname", null)
+
+        val fullNameFromPref = if (firstname != null && lastname != null) {
+            "$firstname $lastname".trim()
+        } else null
+
+        tvNama.text = when {
+            nameFromIntent != null -> nameFromIntent
+            fullNameFromPref != null -> fullNameFromPref
+            else -> "Guest"
         }
 
-        val btnChangePassword = findViewById<Button>(R.id.btn2)
-        btnChangePassword.setOnClickListener {
-            val intent = Intent(this, ChangePassword::class.java)
-            startActivity(intent)
+        // Tombol Change Name
+        findViewById<Button>(R.id.btnChangeName).setOnClickListener {
+            startActivity(Intent(this, ChangeName::class.java))
+        }
+
+        // Tombol Change Password
+        findViewById<Button>(R.id.btn2).setOnClickListener {
+            startActivity(Intent(this, ChangePassword::class.java))
+        }
+
+        // Tombol Logout
+        findViewById<Button>(R.id.btn3).setOnClickListener {
+            showLogoutDialog()
+        }
+
+        // Tombol Back
+        findViewById<android.widget.ImageView>(R.id.btn_back).setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun showLogoutDialog() {
+        val dialog = Dialog(this, R.style.DialogNoBorder)
+        dialog.setContentView(R.layout.dialog_logout_confirm)
+        dialog.setCancelable(true)
+
+        val btnYes = dialog.findViewById<MaterialButton>(R.id.btnYes)
+        val btnNo = dialog.findViewById<MaterialButton>(R.id.btnNo)
+
+        btnYes.setOnClickListener {
+            dialog.dismiss()
+            logoutUser()
+        }
+        btnNo.setOnClickListener { dialog.dismiss() }
+
+        dialog.window?.apply {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            attributes.gravity = Gravity.CENTER
+        }
+
+        dialog.show()
+    }
+
+    private fun logoutUser() {
+        // Hapus semua data login
+        getSharedPreferences("USER_PREFS", Context.MODE_PRIVATE).edit().clear().apply()
+
+        startActivity(Intent(this, LogIn::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
+        finish()
+    }
+    override fun onResume() {
+        super.onResume()
+
+        val tvNama = findViewById<TextView>(R.id.tv_nama)
+
+        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val firstname = sharedPref.getString("firstname", null)
+        val lastname = sharedPref.getString("lastname", null)
+
+        tvNama.text = if (firstname != null && lastname != null) {
+            "$firstname $lastname"
+        } else {
+            "Guest"
         }
     }
 }

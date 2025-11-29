@@ -5,7 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Account::class], version = 1)
+@Database(entities = [Account::class], version = 3)
+
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun accountDao(): AccountDao
@@ -20,7 +21,10 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "user_database"
-                ).build().also { INSTANCE = it }
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                    .also { INSTANCE = it }
             }
         }
     }

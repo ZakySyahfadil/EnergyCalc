@@ -2,6 +2,7 @@ package com.example.pbo.zaky
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -33,10 +34,9 @@ class SignUp3 : AppCompatActivity() {
 
         val sendCodeBtn = findViewById<Button>(R.id.newsign)
 
-        // Ambil email dari halaman SignUp2
-        val email = intent.getStringExtra("identifier")
+        // Ambil identifier dari SignUp2 (email ATAU phone)
+        val identifier = intent.getStringExtra("identifier")
 
-        // Tombol Back
         btnBack.setOnClickListener {
             finish()
         }
@@ -49,7 +49,6 @@ class SignUp3 : AppCompatActivity() {
 
             var valid = true
 
-            // Cek nama kosong
             if (first.isEmpty() || last.isEmpty()) {
                 failName.visibility = TextView.VISIBLE
                 valid = false
@@ -57,7 +56,6 @@ class SignUp3 : AppCompatActivity() {
                 failName.visibility = TextView.GONE
             }
 
-            // Cek password kosong
             if (pass.isEmpty()) {
                 failPass.visibility = TextView.VISIBLE
                 passCondition.visibility = TextView.GONE
@@ -66,7 +64,6 @@ class SignUp3 : AppCompatActivity() {
                 failPass.visibility = TextView.GONE
             }
 
-            // Validasi syarat password
             if (pass.isNotEmpty() && !isPasswordValid(pass)) {
                 passCondition.visibility = TextView.VISIBLE
                 valid = false
@@ -74,30 +71,36 @@ class SignUp3 : AppCompatActivity() {
                 passCondition.visibility = TextView.GONE
             }
 
-            // Email harus ada
-            if (email.isNullOrEmpty()) {
-                Toast.makeText(this, "Email hilang. Ulangi proses Sign Up.", Toast.LENGTH_LONG).show()
+            if (identifier.isNullOrEmpty()) {
+                Toast.makeText(this, "Identifier hilang. Ulangi Sign Up.", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
-            if (valid) if (valid) {
+            if (valid) {
                 lifecycleScope.launch {
                     val db = AppDatabase.getDatabase(this@SignUp3)
                     val dao = db.accountDao()
 
-                    // INSERT ke Room
-                    dao.insertAccount(Account(email = email, password = pass))
+                    // Tentukan apakah identifier ini email atau nomor HP
+                    val isEmail = Patterns.EMAIL_ADDRESS.matcher(identifier).matches()
 
-                    // CEK HASILNYA di LOG
-                    val acc = dao.getAccountByEmail(email)
-                    android.util.Log.d("DB_TEST", "HASIL: $acc")
+                    val account = Account(
+                        firstName = first,
+                        lastName = last,
+                        email = if (isEmail) identifier else "",
+                        phoneNumber = if (!isEmail) identifier else "",
+                        password = pass
+                    )
+
+                    dao.insertAccount(account)
 
                     runOnUiThread {
                         val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
                         sharedPref.edit().apply {
                             putString("firstname", first)
                             putString("lastname", last)
-                            putString("email", email)
+                            putString("email", if (isEmail) identifier else "")
+                            putString("phone", if (!isEmail) identifier else "")
                             apply()
                         }
 
@@ -112,7 +115,6 @@ class SignUp3 : AppCompatActivity() {
         }
     }
 
-    // Fungsi Validasi Password
     private fun isPasswordValid(pass: String): Boolean {
         val hasNumber = pass.any { it.isDigit() }
         val hasLetters = pass.count { it.isLetter() } >= 7
