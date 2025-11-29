@@ -29,6 +29,7 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.material
     implementation libs.androidx.constraintlayout
+    implementation libs.androidx.activity
 
     // Room
     def room_version = "2.6.1"

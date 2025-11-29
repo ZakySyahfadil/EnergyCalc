@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
         <activity
+            android:name=".Alim.HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".zaky.Main_Page_Calculate"
             android:exported="false" />
         <activity
@@ -59,7 +62,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

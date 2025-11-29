@@ -73,6 +73,16 @@ class ChangeName : AppCompatActivity() {
         }
 
         btnYes.setOnClickListener {
+            // Simpan nama ke SharedPreferences
+            val first = firstName.text.toString().trim()
+            val last = lastName.text.toString().trim()
+
+            val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+            sharedPref.edit()
+                .putString("firstname", first)
+                .putString("lastname", last)
+                .apply()
+
             dialog.dismiss()
             showSuccessDialog()
         }
@@ -95,6 +105,21 @@ class ChangeName : AppCompatActivity() {
         // Ketika dialog ditutup → kembali ke halaman sebelumnya
         dialog.setOnDismissListener {
             finish()  // kembali ke activity sebelumnya
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+
+        val tvNama = findViewById<TextView>(R.id.tv_nama)
+
+        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val firstname = sharedPref.getString("firstname", null)
+        val lastname = sharedPref.getString("lastname", null)
+
+        tvNama.text = if (firstname != null && lastname != null) {
+            "$firstname $lastname"
+        } else {
+            "Guest"
         }
     }
 }
