@@ -12,14 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
         <activity
-            android:name=".Alim.HistoryActivity"
+            android:name=".Nazwar.Main_Page_Calculate_Details"
             android:exported="false" />
         <activity
-            android:name=".zaky.Main_Page_Calculate"
+            android:name=".Nazwar.Main_Page_Calculate_Results"
             android:exported="false" />
         <activity
-            android:name=".zaky.Main_Page"
+            android:name=".Nazwar.Main_Page_Calculate"
             android:exported="false" />
+        <activity
+            android:name=".Nazwar.MainPage"
+            android:exported="false" />
+        <activity
+        android:name=".Alim.HistoryActivity"
+        android:exported="false" />
         <activity
             android:name=".zaky.EmailForgot"
             android:exported="false" />

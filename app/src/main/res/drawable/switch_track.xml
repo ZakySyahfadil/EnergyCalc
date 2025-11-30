@@ -1,0 +1,19 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Track saat ON -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#2ECC71"/>
+            <corners android:radius="50dp"/>
+        </shape>
+    </item>
+
+    <!-- Track saat OFF -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#CCCCCC"/>
+            <corners android:radius="50dp"/>
+        </shape>
+    </item>
+
+</selector>
