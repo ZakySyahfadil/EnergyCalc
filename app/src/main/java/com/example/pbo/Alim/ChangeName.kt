@@ -1,16 +1,18 @@
 package com.example.pbo.Alim
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.pbo.R
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.pbo.R
+import com.example.pbo.data.AppDatabase
+import com.example.pbo.utils.DialogUtils // Pastikan Import ini ada!
+import kotlinx.coroutines.launch
 
 class ChangeName : AppCompatActivity() {
 
@@ -28,22 +30,27 @@ class ChangeName : AppCompatActivity() {
         lastName = findViewById(R.id.lastname)
         errorText = findViewById(R.id.enteryourname)
         saveButton = findViewById(R.id.savebutton)
-
         errorText.visibility = View.GONE
 
-        // ✔ Listener hanya satu kali
+        // Tombol simpan
         saveButton.setOnClickListener {
             if (validateName()) {
-                showConfirmDialog()
+                // Tampilkan Dialog Konfirmasi via DialogUtils
+                DialogUtils.showUniversalDialog(
+                    context = this,
+                    message = "Are you sure you want to change your name?",
+                    isConfirmation = true,
+                    onConfirm = {
+                        performUpdateName()
+                    }
+                )
             }
         }
 
-
-        val btn_back = findViewById<ImageView>(R.id.btn_back)
-        btn_back.setOnClickListener { finish()}
+        // Tombol Back
+        findViewById<ImageView>(R.id.btn_back).setOnClickListener { finish() }
     }
 
-    // ✔ sekarang mengembalikan Boolean
     private fun validateName(): Boolean {
         val first = firstName.text.toString().trim()
         val last = lastName.text.toString().trim()
@@ -57,69 +64,38 @@ class ChangeName : AppCompatActivity() {
         }
     }
 
-    private fun showConfirmDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_confirm, null)
+    private fun performUpdateName() {
+        val first = firstName.text.toString().trim()
+        val last = lastName.text.toString().trim()
 
-        val dialog = AlertDialog.Builder(this)
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
+        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val loginKey = prefs.getString("LOGIN_KEY", null)
 
-        val btnYes = dialogView.findViewById<Button>(R.id.btnYes)
-        val btnNo = dialogView.findViewById<Button>(R.id.btnNo)
+        // Simpan ke SharedPreferences
+        prefs.edit()
+            .putString("firstname", first)
+            .putString("lastname", last)
+            .apply()
 
-        btnNo.setOnClickListener {
-            dialog.dismiss()
-        }
+        // Update Database
+        if (loginKey != null) {
+            lifecycleScope.launch {
+                val db = AppDatabase.getDatabase(this@ChangeName)
+                val dao = db.accountDao()
+                dao.updateName(loginKey, first, last)
 
-        btnYes.setOnClickListener {
-            // Simpan nama ke SharedPreferences
-            val first = firstName.text.toString().trim()
-            val last = lastName.text.toString().trim()
-
-            val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-            sharedPref.edit()
-                .putString("firstname", first)
-                .putString("lastname", last)
-                .apply()
-
-            dialog.dismiss()
-            showSuccessDialog()
-        }
-
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-    }
-
-    private fun showSuccessDialog() {
-        val view = layoutInflater.inflate(R.layout.notif_success, null)
-
-        val dialog = AlertDialog.Builder(this)
-            .setView(view)
-            .setCancelable(true)   // ⬅ bisa ditekan di mana saja
-            .create()
-
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-
-        // Ketika dialog ditutup → kembali ke halaman sebelumnya
-        dialog.setOnDismissListener {
-            finish()  // kembali ke activity sebelumnya
-        }
-    }
-    override fun onResume() {
-        super.onResume()
-
-        val tvNama = findViewById<TextView>(R.id.tv_nama)
-
-        val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-        val firstname = sharedPref.getString("firstname", null)
-        val lastname = sharedPref.getString("lastname", null)
-
-        tvNama.text = if (firstname != null && lastname != null) {
-            "$firstname $lastname"
-        } else {
-            "Guest"
+                // Setelah sukses update database, tampilkan Notif Sukses
+                runOnUiThread {
+                    DialogUtils.showUniversalDialog(
+                        context = this@ChangeName,
+                        message = "Your name has been updated.",
+                        isConfirmation = false, // Mode Sukses (Tanpa tombol Yes/No)
+                        onDismiss = {
+                            finish() // Kembali ke menu sebelumnya saat dialog ditutup
+                        }
+                    )
+                }
+            }
         }
     }
 }

@@ -1,19 +1,16 @@
 package com.example.pbo.Alim
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pbo.R
 import com.example.pbo.zaky.LogIn
-import com.google.android.material.button.MaterialButton
+import com.example.pbo.utils.DialogUtils // Pastikan Import ini ada!
 
 class settingActivity : AppCompatActivity() {
 
@@ -22,12 +19,41 @@ class settingActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_setting)
 
-        val tvNama = findViewById<TextView>(R.id.tv_nama)
+        // Setup Nama User
+        updateUserNameDisplay()
 
-        // Ambil dari Intent (jika ada)
+        // Tombol Change Name
+        findViewById<Button>(R.id.btnChangeName).setOnClickListener {
+            startActivity(Intent(this, ChangeName::class.java))
+        }
+
+        // Tombol Change Password
+        findViewById<Button>(R.id.btn2).setOnClickListener {
+            startActivity(Intent(this, ChangePassword::class.java))
+        }
+
+        // Tombol Logout (Menggunakan DialogUtils)
+        findViewById<Button>(R.id.btn3).setOnClickListener {
+            DialogUtils.showUniversalDialog(
+                context = this,
+                message = "Are you sure you want to log out?",
+                isConfirmation = true,
+                onConfirm = {
+                    logoutUser()
+                }
+            )
+        }
+
+        // Tombol Back
+        findViewById<ImageView>(R.id.btn_back).setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun updateUserNameDisplay() {
+        val tvNama = findViewById<TextView>(R.id.tv_nama)
         val nameFromIntent = intent.getStringExtra("USER_NAME")
 
-        // Ganti UserData → USER_PREFS
         val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
         val firstname = sharedPref.getString("firstname", null)
         val lastname = sharedPref.getString("lastname", null)
@@ -41,48 +67,6 @@ class settingActivity : AppCompatActivity() {
             fullNameFromPref != null -> fullNameFromPref
             else -> "Guest"
         }
-
-        // Tombol Change Name
-        findViewById<Button>(R.id.btnChangeName).setOnClickListener {
-            startActivity(Intent(this, ChangeName::class.java))
-        }
-
-        // Tombol Change Password
-        findViewById<Button>(R.id.btn2).setOnClickListener {
-            startActivity(Intent(this, ChangePassword::class.java))
-        }
-
-        // Tombol Logout
-        findViewById<Button>(R.id.btn3).setOnClickListener {
-            showLogoutDialog()
-        }
-
-        // Tombol Back
-        findViewById<android.widget.ImageView>(R.id.btn_back).setOnClickListener {
-            finish()
-        }
-    }
-
-    private fun showLogoutDialog() {
-        val dialog = Dialog(this, R.style.DialogNoBorder)
-        dialog.setContentView(R.layout.dialog_logout_confirm)
-        dialog.setCancelable(true)
-
-        val btnYes = dialog.findViewById<MaterialButton>(R.id.btnYes)
-        val btnNo = dialog.findViewById<MaterialButton>(R.id.btnNo)
-
-        btnYes.setOnClickListener {
-            dialog.dismiss()
-            logoutUser()
-        }
-        btnNo.setOnClickListener { dialog.dismiss() }
-
-        dialog.window?.apply {
-            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            attributes.gravity = Gravity.CENTER
-        }
-
-        dialog.show()
     }
 
     private fun logoutUser() {
@@ -93,5 +77,10 @@ class settingActivity : AppCompatActivity() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         })
         finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateUserNameDisplay()
     }
 }

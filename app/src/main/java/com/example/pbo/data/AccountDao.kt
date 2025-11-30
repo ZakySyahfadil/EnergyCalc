@@ -24,5 +24,9 @@ interface AccountDao {
     @Query("SELECT * FROM accounts WHERE email = :input OR phoneNumber = :input LIMIT 1")
     suspend fun getAccountByEmailOrPhone(input: String): Account?
 
+    @Query("UPDATE accounts SET firstName = :first, lastName = :last WHERE email = :login OR phoneNumber = :login")
+    suspend fun updateName(login: String, first: String, last: String)
+
+
 }
 

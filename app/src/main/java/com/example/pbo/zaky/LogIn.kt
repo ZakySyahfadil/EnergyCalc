@@ -37,14 +37,13 @@ class LogIn : AppCompatActivity() {
             val input = inputEmail.text.toString().trim()
             val pass = inputPass.text.toString().trim()
 
-            // Sembunyikan SEMUA error
+            // Sembunyikan semua error
             tvEmailError.visibility = View.GONE
             tvPasswordError.visibility = View.GONE
             tvEmailRegist.visibility = View.GONE
             tvPassIncorrect.visibility = View.GONE
-            tvTelephoneRegist.visibility = View.GONE  // tambahkan TextView ini di XML
+            tvTelephoneRegist.visibility = View.GONE
 
-            // Validasi input kosong
             if (input.isEmpty()) {
                 tvEmailError.visibility = View.VISIBLE
                 return@setOnClickListener
@@ -59,6 +58,7 @@ class LogIn : AppCompatActivity() {
                 val db = AppDatabase.getDatabase(this@LogIn)
                 val dao = db.accountDao()
 
+                // Cari user berdasarkan email atau nomor telepon
                 val account = if (input.contains("@")) {
                     dao.getAccountByEmail(input.lowercase())
                 } else {
@@ -83,19 +83,29 @@ class LogIn : AppCompatActivity() {
                     return@launch
                 }
 
-                // Login berhasil
+                // ✔ LOGIN SUKSES
                 runOnUiThread {
 
-                    // 🟦 SIMPAN DATA USER KE SHAREDPREFERENCES
-                    val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE).edit()
-                    prefs.putString("LOGIN_KEY", input)
-                    prefs.putString("firstname", account.firstName)
-                    prefs.putString("lastname", account.lastName)
-                    prefs.apply()
+                    val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+                    val editor = prefs.edit()
 
-                    // 🟩 LANJUT KE WELCOME PAGE
+                    // Simpan LOGIN KEY
+                    editor.putString("LOGIN_KEY", input)
+
+                    // Ambil nama yang mungkin sudah pernah diubah user
+                    val savedFirst = prefs.getString("firstname", null)
+                    val savedLast = prefs.getString("lastname", null)
+
+                    // Jika pertama login atau belum pernah ganti nama → simpan dari DB
+                    if (savedFirst == null || savedLast == null) {
+                        editor.putString("firstname", account.firstName)
+                        editor.putString("lastname", account.lastName)
+                    }
+
+                    editor.apply()
+
+                    // Pergi ke Welcome Page
                     val intent = Intent(this@LogIn, WelcomePage::class.java)
-                    intent.putExtra("USER_NAME", "${account.firstName} ${account.lastName}")
                     startActivity(intent)
                     finish()
                 }
