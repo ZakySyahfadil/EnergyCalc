@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pbo.R
+import com.example.pbo.Nazwar.MainPage
 
 class WelcomePage : AppCompatActivity() {
 
@@ -23,7 +24,7 @@ class WelcomePage : AppCompatActivity() {
         nameText.text = "$firstname $lastname".trim()
 
         window.decorView.postDelayed({
-            startActivity(Intent(this, Main_Page::class.java))
+            startActivity(Intent(this, MainPage::class.java))
             finish()
         }, 2000)
     }

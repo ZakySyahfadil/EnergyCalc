@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".Nazwar.MainPage">
 
-     <ImageView
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:src="@drawable/mainpage"
-         android:scaleType="fitXY"
-         android:adjustViewBounds="true"
-         />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mainpage"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        />
     <!-- Your Name -->
     <TextView
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:layout_marginTop="100dp"
         android:textStyle="bold"
         android:textSize="32sp"
-    />
+        />
 
     <!-- Edit Profile -->
     <TextView
@@ -34,7 +34,7 @@
         android:layout_below="@+id/name"
         android:text="@string/edit_profile"
         android:layout_alignRight="@+id/name"
-    />
+        />
 
     <!-- Background Image -->
     <ImageView
