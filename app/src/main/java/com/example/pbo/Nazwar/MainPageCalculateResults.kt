@@ -25,8 +25,8 @@ class MainPageCalculateResults : AppCompatActivity() {
         //memasukkan nilai variabel ke layar
         val name = intent.getStringExtra("deviceName")
         val power = intent.getStringExtra("devicePower")
-        val duration = intent.getStringExtra("duration")
-        val frequency = intent.getStringExtra("frequency")
+        val duration = intent.getIntExtra("duration", 0)
+        val frequency = intent.getIntExtra("frequency", 0)
 
         val deviceName = findViewById<TextView>(R.id.device)
         deviceName.text = name
@@ -42,8 +42,8 @@ class MainPageCalculateResults : AppCompatActivity() {
 
         //menghitung jumlah biaya listrik per bulan
         val powerWatt = power?.toDoubleOrNull() ?: 0.0
-        val durationMin = duration?.toDoubleOrNull() ?: 0.0
-        val frequencyWeek = frequency?.toDoubleOrNull() ?: 0.0
+        val durationMin = duration.toDouble()
+        val frequencyWeek = frequency.toDouble()
 
         // Tarif listrik per kWh
         val tariff = 1500
