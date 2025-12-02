@@ -45,4 +45,17 @@ class MainPage : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        val tvName = findViewById<TextView>(R.id.name)
+
+        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val firstname = prefs.getString("firstname", "User")
+        val lastname = prefs.getString("lastname", "")
+
+        tvName.text = "$firstname $lastname".trim()
+    }
+
 }
