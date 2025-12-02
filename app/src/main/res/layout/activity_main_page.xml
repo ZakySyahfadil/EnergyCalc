@@ -24,6 +24,7 @@
         android:layout_marginTop="100dp"
         android:textStyle="bold"
         android:textSize="32sp"
+        android:textColor="@color/black"
         />
 
     <!-- Edit Profile -->
@@ -34,6 +35,7 @@
         android:layout_below="@+id/name"
         android:text="@string/edit_profile"
         android:layout_alignRight="@+id/name"
+        android:textColor="@color/black"
         />
 
     <!-- Background Image -->

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
         <activity
+            android:name=".Nazwar.MainPage"
+            android:exported="false"/>
+        <activity
             android:name=".Nazwar.MainPageCalculate"
             android:exported="false"
             android:theme="@style/Theme.PBO" />
