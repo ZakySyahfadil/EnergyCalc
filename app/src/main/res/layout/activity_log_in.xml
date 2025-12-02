@@ -45,7 +45,7 @@
     <EditText
         android:id="@+id/inputEmail"
         android:layout_width="360dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:hint="Enter your email or telephone number"
         android:inputType="textEmailAddress"
         android:layout_below="@+id/emailLabel"
@@ -118,7 +118,7 @@
     <EditText
         android:id="@+id/inputPass"
         android:layout_width="360dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:hint="Enter your password"
         android:inputType="textPassword"
         android:textSize="16dp"
