@@ -2,7 +2,6 @@ package com.example.pbo.Nazwar
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.TestLooperManager
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +41,7 @@ class MainPage : AppCompatActivity() {
         val buttonCalculate = findViewById<MaterialButton>(R.id.button_calculate)
 
         buttonCalculate.setOnClickListener {
-            val intent = Intent(this, Main_Page_Calculate::class.java)
+            val intent = Intent(this, MainPageCalculate::class.java)
             startActivity(intent)
         }
     }

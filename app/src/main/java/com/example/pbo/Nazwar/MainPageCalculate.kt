@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.pbo.R
 import com.google.android.material.button.MaterialButton
 
-class Main_Page_Calculate : AppCompatActivity() {
+class MainPageCalculate : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -91,7 +91,7 @@ class Main_Page_Calculate : AppCompatActivity() {
                 frequency = frequencyText.toInt()
             }
 
-            val intent = Intent(this, Main_Page_Calculate_Results::class.java)
+            val intent = Intent(this, MainPageCalculateResults::class.java)
             intent.putExtra("deviceName", name)
             intent.putExtra("devicePower", power)
             intent.putExtra("duration", duration)

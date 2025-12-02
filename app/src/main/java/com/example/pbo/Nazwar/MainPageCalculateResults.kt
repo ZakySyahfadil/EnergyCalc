@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pbo.R
 
-class Main_Page_Calculate_Results : AppCompatActivity() {
+class MainPageCalculateResults : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -64,7 +64,7 @@ class Main_Page_Calculate_Results : AppCompatActivity() {
         val btnDetail = findViewById<Button>(R.id.btn_detail)
 
         btnDetail.setOnClickListener {
-            val intent = Intent(this, Main_Page_Calculate_Details::class.java)
+            val intent = Intent(this, MainPageCalculateDetails::class.java)
 
             intent.putExtra("power", power)
             intent.putExtra("duration", duration)
