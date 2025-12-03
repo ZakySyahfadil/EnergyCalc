@@ -104,6 +104,7 @@
         android:layout_marginHorizontal="26dp"
         android:layout_centerHorizontal="true"
         android:text="Send a Code"
+        android:textColor="@color/white"
         android:background="@drawable/button_shape"
         android:textAllCaps="false"/>
 </RelativeLayout>

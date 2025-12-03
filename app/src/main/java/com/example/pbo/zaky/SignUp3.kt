@@ -14,6 +14,7 @@ import com.example.pbo.R
 import com.example.pbo.data.Account
 import com.example.pbo.data.AppDatabase
 import androidx.lifecycle.lifecycleScope
+import com.example.pbo.utils.DialogUtils // Pastikan import DialogUtils ada biar bisa notif sukses
 import kotlinx.coroutines.launch
 
 class SignUp3 : AppCompatActivity() {
@@ -34,12 +35,10 @@ class SignUp3 : AppCompatActivity() {
 
         val sendCodeBtn = findViewById<Button>(R.id.newsign)
 
-        // Ambil identifier dari SignUp2 (email ATAU phone)
+        // Ambil identifier dari SignUp2
         val identifier = intent.getStringExtra("identifier")
 
-        btnBack.setOnClickListener {
-            finish()
-        }
+        btnBack.setOnClickListener { finish() }
 
         sendCodeBtn.setOnClickListener {
 
@@ -81,34 +80,57 @@ class SignUp3 : AppCompatActivity() {
                     val db = AppDatabase.getDatabase(this@SignUp3)
                     val dao = db.accountDao()
 
-                    // Tentukan apakah identifier ini email atau nomor HP
                     val isEmail = Patterns.EMAIL_ADDRESS.matcher(identifier).matches()
 
-                    val account = Account(
-                        firstName = first,
-                        lastName = last,
-                        email = if (isEmail) identifier else "",
-                        phoneNumber = if (!isEmail) identifier else "",
-                        password = pass
-                    )
+                    // Cek apakah user sudah ada sebelumnya (Opsional tapi bagus)
+                    val existingUser = dao.getAccountByEmailOrPhone(identifier)
 
-                    dao.insertAccount(account)
+                    if (existingUser == null) {
+                        val account = Account(
+                            firstName = first,
+                            lastName = last,
+                            email = if (isEmail) identifier else "",
+                            phoneNumber = if (!isEmail) identifier else "",
+                            password = pass
+                        )
 
-                    runOnUiThread {
-                        val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
-                        sharedPref.edit().apply {
-                            putString("firstname", first)
-                            putString("lastname", last)
-                            putString("email", if (isEmail) identifier else "")
-                            putString("phone", if (!isEmail) identifier else "")
-                            apply()
+                        dao.insertAccount(account)
+
+                        runOnUiThread {
+                            val sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+                            sharedPref.edit().apply {
+                                // 🔥🔥🔥 INI YANG KETINGGALAN KEMARIN 🔥🔥🔥
+                                // Kita wajib simpan LOGIN_KEY agar Change Name bisa jalan
+                                putString("LOGIN_KEY", identifier)
+
+                                putString("firstname", first)
+                                putString("lastname", last)
+                                putString("email", if (isEmail) identifier else "")
+                                putString("phone", if (!isEmail) identifier else "")
+                                apply()
+                            }
+
+                            // Tampilkan Notif Sukses menggunakan DialogUtils (Sesuai request kamu)
+                            DialogUtils.showUniversalDialog(
+                                context = this@SignUp3,
+                                message = "Account created successfully!",
+                                isConfirmation = false,
+                                onDismiss = {
+                                    val fullName = "$first $last"
+                                    val intent = Intent(this@SignUp3, WelcomePage::class.java)
+                                    intent.putExtra("USER_NAME", fullName)
+                                    // Clear task agar user tidak bisa back ke halaman signup
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            )
                         }
-
-                        val fullName = "$first $last"
-                        val intent = Intent(this@SignUp3, WelcomePage::class.java)
-                        intent.putExtra("USER_NAME", fullName)
-                        startActivity(intent)
-                        finish()
+                    } else {
+                        // Jika akun sudah ada (duplikat)
+                        runOnUiThread {
+                            Toast.makeText(this@SignUp3, "Account already exists!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
