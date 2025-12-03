@@ -62,7 +62,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button1"
+        android:id="@+id/buttonHistory"
         android:background="@drawable/btn1_main_page"
         app:backgroundTint="@null"
         android:layout_below="@id/icon1"

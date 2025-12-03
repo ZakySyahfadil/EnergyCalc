@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- file: app/src/main/res/layout/activity_history.xml -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -15,19 +14,42 @@
         android:src="@drawable/bg_history" />
 
     <ImageView
-        android:id="@+id/btn_backhistory"
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
         android:src="@drawable/ic_back_arrow" />
 
     <ImageView
+        android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/historyheader"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/btn_backhistory"
-        android:layout_marginTop="11dp"
-        />
+        android:layout_below="@id/btnBack"
+        android:layout_marginTop="11dp" />
+
+    <!-- Empty text when no history -->
+    <TextView
+        android:id="@+id/emptyHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Belum ada history.\nGunakan kalkulator untuk melihat riwayat."
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+
+    <!-- RecyclerView untuk menampilkan list history -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/history"
+        android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:clipToPadding="false" />
 </RelativeLayout>
