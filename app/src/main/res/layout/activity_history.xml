@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Alim.HistoryActivity">
+    >
 
     <ImageView
         android:id="@+id/backgroundhistory"
@@ -32,15 +32,17 @@
 
     <!-- Empty text when no history -->
     <TextView
-        android:id="@+id/emptyHistory"
+        android:id="@+id/txtEmpty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Belum ada history.\nGunakan kalkulator untuk melihat riwayat."
+        android:text="There is no history yet.\nUse the calculator to view the history."
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:gravity="center"
-        android:textSize="16sp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp" />
 
     <!-- RecyclerView untuk menampilkan list history -->
     <androidx.recyclerview.widget.RecyclerView
@@ -52,4 +54,5 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:clipToPadding="false" />
+
 </RelativeLayout>
