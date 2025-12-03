@@ -3,6 +3,7 @@ package com.example.pbo.Nazwar
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +28,11 @@ class MainPageCalculateResults : AppCompatActivity() {
         val power = intent.getStringExtra("devicePower")
         val duration = intent.getIntExtra("duration", 0)
         val frequency = intent.getIntExtra("frequency", 0)
+
+        val buttonBack = findViewById<ImageView>(R.id.panah)
+        buttonBack.setOnClickListener {
+            finish()
+        }
 
         val deviceName = findViewById<TextView>(R.id.device)
         deviceName.text = name

@@ -1,6 +1,7 @@
 package com.example.pbo.Nazwar
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -26,8 +27,10 @@ class MainPageCalculateDetails : AppCompatActivity() {
         val energyPerWeek = intent.getDoubleExtra("energyPerWeek", 0.0)
         val costPerMonth = intent.getDoubleExtra("costPerMonth", 0.0)
 
-        val button
-
+        val buttonBack = findViewById<ImageView>(R.id.panah)
+        buttonBack.setOnClickListener {
+            finish()
+        }
 
         val txt2 = findViewById<TextView>(R.id.txt2)
         txt2.text = "= (${power.toInt()} × ${"%.2f".format(duration/60 * frequency)}) ÷ 1000"
