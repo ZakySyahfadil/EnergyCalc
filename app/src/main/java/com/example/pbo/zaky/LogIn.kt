@@ -85,30 +85,22 @@ class LogIn : AppCompatActivity() {
 
                 // ✔ LOGIN SUKSES
                 runOnUiThread {
-
                     val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
                     val editor = prefs.edit()
 
-                    // Simpan LOGIN KEY
+                    // Simpan login key (email/no hp)
                     editor.putString("LOGIN_KEY", input)
 
-                    // Ambil nama yang mungkin sudah pernah diubah user
-                    val savedFirst = prefs.getString("firstname", null)
-                    val savedLast = prefs.getString("lastname", null)
-
-                    // Jika pertama login atau belum pernah ganti nama → simpan dari DB
-                    if (savedFirst == null || savedLast == null) {
-                        editor.putString("firstname", account.firstName)
-                        editor.putString("lastname", account.lastName)
-                    }
+                    // Ambil data NAMA TERBARU dari database (bukan SharedPreferences)
+                    editor.putString("firstname", account.firstName)
+                    editor.putString("lastname", account.lastName)
 
                     editor.apply()
 
-                    // Pergi ke Welcome Page
-                    val intent = Intent(this@LogIn, WelcomePage::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this@LogIn, WelcomePage::class.java))
                     finish()
                 }
+
             }
         }
 
