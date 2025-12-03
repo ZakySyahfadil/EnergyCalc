@@ -15,8 +15,8 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="label_power">%1$s W</string>
-    <string name="label_duration">%1$s minutes</string>
-    <string name="label_frequency">%1$s times</string>
+    <string name="label_duration">%1$d minutes</string>
+    <string name="label_frequency">%1$d times</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Switch
 import androidx.activity.enableEdgeToEdge
@@ -36,6 +37,11 @@ class MainPageCalculate : AppCompatActivity() {
         val box2 = findViewById<EditText>(R.id.box2)
         val box3 = findViewById<EditText>(R.id.box3)
         val box4 = findViewById<EditText>(R.id.box4)
+
+        val buttonBack = findViewById<ImageView>(R.id.panah)
+        buttonBack.setOnClickListener {
+            finish()
+        }
 
         val buttonCalculate = findViewById<MaterialButton>(R.id.button_calculate)
 

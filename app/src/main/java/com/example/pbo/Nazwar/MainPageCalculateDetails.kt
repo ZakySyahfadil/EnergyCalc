@@ -26,6 +26,8 @@ class MainPageCalculateDetails : AppCompatActivity() {
         val energyPerWeek = intent.getDoubleExtra("energyPerWeek", 0.0)
         val costPerMonth = intent.getDoubleExtra("costPerMonth", 0.0)
 
+        val button
+
 
         val txt2 = findViewById<TextView>(R.id.txt2)
         txt2.text = "= (${power.toInt()} × ${"%.2f".format(duration/60 * frequency)}) ÷ 1000"

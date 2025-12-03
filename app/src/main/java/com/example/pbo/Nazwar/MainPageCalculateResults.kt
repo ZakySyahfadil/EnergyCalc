@@ -74,5 +74,6 @@ class MainPageCalculateResults : AppCompatActivity() {
 
             startActivity(intent)
         }
+        //tombol back
     }
 }
