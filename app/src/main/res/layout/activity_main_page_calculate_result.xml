@@ -84,7 +84,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/result_item1"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
                     app:shapeAppearanceOverlay="@style/OvalImage"/>
 
                 <LinearLayout
@@ -134,7 +135,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/result_item1"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
                     app:shapeAppearanceOverlay="@style/OvalImage"/>
 
                 <LinearLayout
@@ -183,7 +185,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/result_item1"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
                     app:shapeAppearanceOverlay="@style/OvalImage"/>
 
                 <LinearLayout
