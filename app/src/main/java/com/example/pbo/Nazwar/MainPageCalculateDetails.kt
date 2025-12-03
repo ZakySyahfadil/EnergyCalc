@@ -20,8 +20,8 @@ class MainPageCalculateDetails : AppCompatActivity() {
         }
 
         val power = intent.getStringExtra("power")?.toDoubleOrNull() ?: 0.0
-        val duration = intent.getStringExtra("duration")?.toDoubleOrNull() ?: 0.0
-        val frequency = intent.getStringExtra("frequency")?.toDoubleOrNull() ?: 0.0
+        val duration = intent.getIntExtra("duration",0).toDouble()
+        val frequency = intent.getIntExtra("frequency", 0).toDouble()
 
         val energyPerWeek = intent.getDoubleExtra("energyPerWeek", 0.0)
         val costPerMonth = intent.getDoubleExtra("costPerMonth", 0.0)

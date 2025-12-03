@@ -9,19 +9,13 @@
 
     <ImageView
         android:id="@+id/main_page_details1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/main_calculate_results_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/calculatedetailbg"
         android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:id="@+id/main_page_details2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/main_page_details_bg"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"/>
 
     <ImageView
         android:id="@+id/panah"
@@ -31,19 +25,10 @@
         android:layout_marginTop="45dp"
         android:layout_marginStart ="15dp" />
 
-    <ImageView
-        android:id="@+id/ic1"
-        android:layout_width="145dp"
-        android:layout_height="145dp"
-        android:alpha="0.4"
-        android:layout_below="@id/panah"
-        android:src="@drawable/icn1_main_page"
-        android:layout_centerHorizontal="true"/>
-
     <TextView
         android:id="@+id/txt_details"
         android:layout_below="@id/panah"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="85dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Details"
@@ -67,7 +52,8 @@
             android:layout_height="wrap_content"
             android:text="Energy"
             android:textStyle="bold"
-            android:textSize="17sp"/>
+            android:textSize="17sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/txt1"
@@ -75,6 +61,7 @@
             android:layout_height="wrap_content"
             android:text = "= (watt × hours) ÷ 1000"
             android:textSize="17sp"
+            android:textColor="@color/black"
             android:layout_marginTop="6dp"/>
 
         <TextView
@@ -83,6 +70,7 @@
             android:layout_height="wrap_content"
             android:text = "= (0 × 0) ÷ 1000"
             android:textSize="17sp"
+            android:textColor="@color/black"
             android:layout_marginTop="6dp"/>
 
         <TextView
@@ -91,6 +79,7 @@
             android:layout_height="wrap_content"
             android:text = "= 0 kWh per week"
             android:textSize="17sp"
+            android:textColor="@color/black"
             android:layout_marginTop="6dp"/>
 
         <TextView
@@ -99,6 +88,7 @@
             android:layout_height="wrap_content"
             android:text="cost"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginTop="20dp"
             android:textSize="17sp"/>
 
@@ -108,7 +98,8 @@
             android:layout_height="wrap_content"
             android:text = "= kWh × 1.500 × 4"
             android:textSize="17sp"
-            android:layout_marginTop="6dp"/>
+            android:layout_marginTop="6dp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/txt6"
@@ -116,6 +107,7 @@
             android:layout_height="wrap_content"
             android:text = "= 0 × 1.500 × 4"
             android:textSize="17sp"
+            android:textColor="@color/black"
             android:layout_marginTop="6dp"/>
     </LinearLayout>
 
