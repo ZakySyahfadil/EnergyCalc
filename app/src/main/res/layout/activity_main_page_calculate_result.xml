@@ -67,6 +67,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:clipChildren="false"
         android:layout_marginTop="20dp">
 
         <LinearLayout
