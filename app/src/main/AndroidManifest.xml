@@ -18,10 +18,6 @@
             android:name=".zaky.HistoryResults"
             android:exported="false" />
         <activity
-            android:name=".zaky.PageHistory"
-            android:exported="false"
-            android:theme="@style/Theme.PBO" />
-        <activity
             android:name=".Nazwar.MainPageCalculate"
             android:exported="false"
             android:theme="@style/Theme.PBO" />
