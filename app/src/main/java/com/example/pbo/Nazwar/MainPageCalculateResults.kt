@@ -84,25 +84,25 @@ class MainPageCalculateResults : AppCompatActivity() {
 
             val currentDateString = currentDate()
 
+            val powerStr = "$power W"
+            val durationStr = "$duration minutes"
+            val freqStr = "$frequency times"
+
             lifecycleScope.launch(Dispatchers.IO) {
-                try {
-                    val db = AppDatabase.getDatabase(this@MainPageCalculateResults)
-                    val deviceNameVal = name ?: "Unknown device"
+                val db = AppDatabase.getDatabase(this@MainPageCalculateResults)
 
-                    val kwhStr = "%.3f kWh".format(energyPerMonth)
-                    val costStr = "Rp${"%,.0f".format(costPerMonth)}"
+                db.historyDao().insert(
+                    HistoryEntity(
+                        deviceName = name ?: "Unknown device",
+                        kWh = "%.3f kWh".format(energyPerMonth),
+                        totalCost = "Rp${"%,.0f".format(costPerMonth)}",
+                        date = currentDateString,
 
-                    db.historyDao().insert(
-                        HistoryEntity(
-                            deviceName = deviceNameVal,
-                            kWh = kwhStr,
-                            totalCost = costStr,
-                            date = currentDateString
-                        )
+                        powerValue = powerStr,
+                        durationValue = durationStr,
+                        frequencyValue = freqStr
                     )
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                )
             }
         }
     }

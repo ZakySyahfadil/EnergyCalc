@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pbo.R
 
 class HistoryAdapter(
-    private val onDeleteClick: (HistoryEntity) -> Unit
+    private val onDeleteClick: (HistoryEntity) -> Unit,
+    private val onItemClick: (HistoryEntity) -> Unit      // <-- tambahan
 ) : ListAdapter<HistoryEntity, HistoryAdapter.HistoryViewHolder>(DIFF) {
 
     companion object {
@@ -33,7 +34,12 @@ class HistoryAdapter(
         fun bind(item: HistoryEntity) {
             tvDevice.text = item.deviceName
             tvDate.text = item.date
+
+            // klik icon delete
             btnDelete.setOnClickListener { onDeleteClick(item) }
+
+            // klik item → buka halaman detail
+            itemView.setOnClickListener { onItemClick(item) }
         }
     }
 
@@ -46,7 +52,6 @@ class HistoryAdapter(
         holder.bind(getItem(position))
     }
 
-    /** helper publik kalau butuh mengambil item di luar adapter */
     fun getItemAt(position: Int): HistoryEntity? =
         runCatching { getItem(position) }.getOrNull()
 }
