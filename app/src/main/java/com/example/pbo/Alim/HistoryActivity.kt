@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pbo.R
 import com.example.pbo.data.AppDatabase
 import com.example.pbo.data.HistoryAdapter
-import com.example.pbo.data.HistoryEntity
-import com.example.pbo.zaky.HistoryResults
 import com.example.pbo.utils.DialogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,24 +48,16 @@ class HistoryActivity : AppCompatActivity() {
 
                             withContext(Dispatchers.Main) { loadHistory() }
                         }
-                    },
-                    onDismiss = {}
+                    }
                 )
             },
             onItemClick = { item ->
-                val intent = Intent(this, com.example.pbo.zaky.HistoryResults::class.java).apply {
-                    putExtra("deviceName", item.deviceName)
-                    putExtra("kWh", item.kWh)
-                    putExtra("totalCost", item.totalCost)
-                    putExtra("date", item.date)
-
-                    putExtra("powerValue", item.powerValue)
-                    putExtra("durationValue", item.durationValue)
-                    putExtra("frequencyValue", item.frequencyValue)
-                }
+                val intent = Intent(this, com.example.pbo.zaky.HistoryResults::class.java)
+                intent.putExtra("history_id", item.id)   // 🔥 KIRIM CUMA ID
                 startActivity(intent)
             }
         )
+
         recyclerHistory.adapter = adapter
 
         btnBack.setOnClickListener { finish() }

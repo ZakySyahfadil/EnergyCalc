@@ -5,19 +5,23 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.pbo.R
+import com.example.pbo.data.AppDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HistoryResults : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_history_results)
 
-        val device = findViewById<TextView>(R.id.device)
-        val amount = findViewById<TextView>(R.id.amount)
+        val txtDevice = findViewById<TextView>(R.id.device)
+        val txtAmount = findViewById<TextView>(R.id.amount)
+
         val txtPower = findViewById<TextView>(R.id.AmtPower)
         val txtDuration = findViewById<TextView>(R.id.AmtDuration)
         val txtFrequency = findViewById<TextView>(R.id.AmtFrequency)
@@ -25,34 +29,31 @@ class HistoryResults : AppCompatActivity() {
         val btnDetails = findViewById<Button>(R.id.btndetails)
         val btnBack = findViewById<ImageView>(R.id.btnBack)
 
-        // Ambil data yang dikirim dari HistoryActivity
-        val deviceName = intent.getStringExtra("deviceName") ?: ""
-        val kWh = intent.getStringExtra("kWh") ?: ""
-        val totalCost = intent.getStringExtra("totalCost") ?: ""
-        val powerValue = intent.getStringExtra("powerValue") ?: ""
-        val durationValue = intent.getStringExtra("durationValue") ?: ""
-        val frequencyValue = intent.getStringExtra("frequencyValue") ?: ""
+        val historyId = intent.getIntExtra("history_id", -1)
+        if (historyId == -1) {
+            finish()
+            return
+        }
 
-        // Set data ke tampilan
-        device.text = deviceName
-        amount.text = totalCost
-        txtPower.text = powerValue
-        txtDuration.text = durationValue
-        txtFrequency.text = frequencyValue
+        lifecycleScope.launch(Dispatchers.IO) {
+            val dao = AppDatabase.getDatabase(this@HistoryResults).historyDao()
+            val data = dao.getHistoryById(historyId) ?: return@launch
 
-        // Tombol kembali
+            withContext(Dispatchers.Main) {
+                txtDevice.text = data.deviceName
+                txtAmount.text = data.totalCost
+
+                txtPower.text = data.powerValue
+                txtDuration.text = data.durationValue
+                txtFrequency.text = data.frequencyValue
+            }
+        }
+
         btnBack.setOnClickListener { finish() }
 
-        // 🔥 Button "See Details" menuju HistoryDetails.kt
         btnDetails.setOnClickListener {
-            val intent = Intent(this, HistoryDetails::class.java).apply {
-                putExtra("deviceName", deviceName)
-                putExtra("kWh", kWh)
-                putExtra("totalCost", totalCost)
-                putExtra("powerValue", powerValue)
-                putExtra("durationValue", durationValue)
-                putExtra("frequencyValue", frequencyValue)
-            }
+            val intent = Intent(this, HistoryDetails::class.java)
+            intent.putExtra("history_id", historyId)  // 🔥 Pass ID
             startActivity(intent)
         }
     }
