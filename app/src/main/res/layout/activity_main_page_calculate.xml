@@ -72,7 +72,6 @@
             android:id="@+id/wrong1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/enteryouroldpass"
             android:layout_marginTop="5dp"
             android:text="Please enter your device name"
             android:textColor="@color/red"
@@ -105,7 +104,6 @@
             android:id="@+id/wrong2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/enteryouroldpass"
             android:layout_marginTop="5dp"
             android:text="Please enter your device power"
             android:textColor="@color/red"
@@ -161,7 +159,6 @@
             android:orientation="horizontal"
             android:layout_marginTop="12dp"
             android:visibility="gone">
-
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -220,6 +217,16 @@
             </LinearLayout>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/wrong3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text= "Please enter your weekly usage duration and frequency"
+            android:textColor="@color/red"
+            android:visibility="gone" />
+
+
         <Button
             android:id="@+id/button_calculate"
             android:background="@drawable/button_filled"
@@ -231,7 +238,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             />
-
     </LinearLayout>
 
 </RelativeLayout>
