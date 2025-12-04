@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.pbo.R
 import com.example.pbo.data.HistoryEntity
 import com.example.pbo.data.AppDatabase
+// Pastikan import ini sesuai dengan nama folder kamu (util atau utils)
 import com.example.pbo.utils.DialogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,7 +34,7 @@ class MainPageCalculateResults : AppCompatActivity() {
             insets
         }
 
-        // --- AMBIL DATA ---
+        // --- AMBIL DATA DARI INTENT ---
         val name = intent.getStringExtra("deviceName")
         val power = intent.getStringExtra("devicePower")
         val duration = intent.getIntExtra("duration", 0)
@@ -42,8 +43,12 @@ class MainPageCalculateResults : AppCompatActivity() {
         // --- TOMBOL BACK ---
         val buttonBack = findViewById<ImageView>(R.id.panah)
         buttonBack.setOnClickListener {
+            // Kembali ke Main Page
             val intent = Intent(this, MainPage::class.java)
+            // Clear top agar tidak menumpuk activity
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
+            finish()
         }
 
         // --- TAMPILKAN UI ---
@@ -81,18 +86,18 @@ class MainPageCalculateResults : AppCompatActivity() {
         }
 
         // ----------------------------------------------------------
-        //     LOGIKA SAVE DENGAN NOTIFIKASI
+        //     LOGIKA SAVE (KONFIRMASI -> DATABASE)
         // ----------------------------------------------------------
         val btnSave = findViewById<Button>(R.id.btn_save)
         btnSave.setOnClickListener {
 
-            // 1. Tampilkan Dialog Konfirmasi Dulu
+            // 1. Tampilkan Dialog Konfirmasi
             DialogUtils.showUniversalDialog(
                 context = this,
-                message = "Are you sure you want to save this result?", // Pesan Konfirmasi
+                message = "Are you sure you want to save this result?",
                 isConfirmation = true,
                 onConfirm = {
-                    // 2. Jika user pilih YES, jalankan penyimpanan
+                    // 2. Jika YES, jalankan penyimpanan
                     performSaveToDatabase(
                         name = name,
                         energyPerMonth = energyPerMonth,
@@ -106,7 +111,6 @@ class MainPageCalculateResults : AppCompatActivity() {
         }
     }
 
-    // Fungsi untuk menyimpan ke database (Dipisah biar rapi)
     private fun performSaveToDatabase(
         name: String?,
         energyPerMonth: Double,
@@ -115,6 +119,13 @@ class MainPageCalculateResults : AppCompatActivity() {
         duration: Int,
         frequency: Int
     ) {
+        // 🔥 LOGIKA PENTING: AMBIL USER YANG LOGIN 🔥
+        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+        val currentUser = prefs.getString("LOGIN_KEY", null)
+
+        // Jika tidak ada user login (misal error), jangan simpan agar tidak crash
+        if (currentUser == null) return
+
         val currentDateString = currentDate()
         val powerStr = "$power W"
         val durationStr = "$duration minutes"
@@ -123,7 +134,7 @@ class MainPageCalculateResults : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(this@MainPageCalculateResults)
 
-            // Insert data
+            // Insert data dengan menyertakan userOwner
             db.historyDao().insert(
                 HistoryEntity(
                     deviceName = name ?: "Unknown device",
@@ -132,19 +143,21 @@ class MainPageCalculateResults : AppCompatActivity() {
                     date = currentDateString,
                     powerValue = powerStr,
                     durationValue = durationStr,
-                    frequencyValue = freqStr
+                    frequencyValue = freqStr,
+
+                    // 🔥 SIMPAN KEPEMILIKAN DATA
+                    userOwner = currentUser
                 )
             )
 
-            // 3. Setelah sukses simpan, Kembali ke Main Thread untuk tampilkan Dialog Sukses
+            // 3. Tampilkan Dialog Sukses
             withContext(Dispatchers.Main) {
                 DialogUtils.showUniversalDialog(
                     context = this@MainPageCalculateResults,
-                    message = "Result saved. You can view it in History.", // Pesan Sukses
+                    message = "Result saved. You can view it in History.",
                     isConfirmation = false,
                     onDismiss = {
-                        // Opsional: Tutup halaman atau disable tombol save jika mau
-                        // finish()
+                        // Opsional: Tutup halaman jika mau
                     }
                 )
             }
