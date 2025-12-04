@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pbo.Alim.settingActivity
+import com.example.pbo.Alim.HistoryActivity
 import com.example.pbo.R
 import com.google.android.material.button.MaterialButton
 
@@ -37,12 +38,18 @@ class MainPage : AppCompatActivity() {
             startActivity(Intent(this, settingActivity::class.java))
         }
 
-        //Logika Perpindahan
+        // Tombol Calculate
         val buttonCalculate = findViewById<MaterialButton>(R.id.button_calculate)
-
         buttonCalculate.setOnClickListener {
             val intent = Intent(this, MainPageCalculate::class.java)
             startActivity(intent)
+        }
+
+        // Tombol History
+        val buttonHistory = findViewById<MaterialButton>(R.id.buttonHistory)
+
+        buttonHistory.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
     }
 
@@ -57,5 +64,4 @@ class MainPage : AppCompatActivity() {
 
         tvName.text = "$firstname $lastname".trim()
     }
-
 }

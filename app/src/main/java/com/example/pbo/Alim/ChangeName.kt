@@ -1,5 +1,7 @@
 package com.example.pbo.Alim
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -11,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.pbo.R
 import com.example.pbo.data.AppDatabase
-import com.example.pbo.utils.DialogUtils // Pastikan Import ini ada!
+import com.example.pbo.utils.DialogUtils
 import kotlinx.coroutines.launch
 
 class ChangeName : AppCompatActivity() {
@@ -30,24 +32,20 @@ class ChangeName : AppCompatActivity() {
         lastName = findViewById(R.id.lastname)
         errorText = findViewById(R.id.enteryourname)
         saveButton = findViewById(R.id.savebutton)
+
         errorText.visibility = View.GONE
 
-        // Tombol simpan
         saveButton.setOnClickListener {
             if (validateName()) {
-                // Tampilkan Dialog Konfirmasi via DialogUtils
                 DialogUtils.showUniversalDialog(
                     context = this,
                     message = "Are you sure you want to change your name?",
                     isConfirmation = true,
-                    onConfirm = {
-                        performUpdateName()
-                    }
+                    onConfirm = { performUpdateName() }
                 )
             }
         }
 
-        // Tombol Back
         findViewById<ImageView>(R.id.btn_back).setOnClickListener { finish() }
     }
 
@@ -77,24 +75,36 @@ class ChangeName : AppCompatActivity() {
             .putString("lastname", last)
             .apply()
 
-        // Update Database
-        if (loginKey != null) {
-            lifecycleScope.launch {
-                val db = AppDatabase.getDatabase(this@ChangeName)
-                val dao = db.accountDao()
-                dao.updateName(loginKey, first, last)
+        // Hasil untuk SettingActivity (agar nama langsung ter-update tanpa logout)
+        val returnIntent = Intent()
+        returnIntent.putExtra("UPDATED_NAME", "$first $last")
+        setResult(RESULT_OK, returnIntent)
 
-                // Setelah sukses update database, tampilkan Notif Sukses
-                runOnUiThread {
-                    DialogUtils.showUniversalDialog(
-                        context = this@ChangeName,
-                        message = "Your name has been updated.",
-                        isConfirmation = false, // Mode Sukses (Tanpa tombol Yes/No)
-                        onDismiss = {
-                            finish() // Kembali ke menu sebelumnya saat dialog ditutup
-                        }
-                    )
-                }
+        // Jika tidak ada LOGIN_KEY (misal dari SignUp langsung), tetap sukses
+        if (loginKey == null) {
+            DialogUtils.showUniversalDialog(
+                context = this,
+                message = "Your name has been updated.",
+                isConfirmation = false,
+                onDismiss = { finish() }
+            )
+            return
+        }
+
+        // Update database menggunakan coroutine
+        lifecycleScope.launch {
+            val db = AppDatabase.getDatabase(this@ChangeName)
+            val dao = db.accountDao()
+
+            dao.updateName(loginKey, first, last)
+
+            runOnUiThread {
+                DialogUtils.showUniversalDialog(
+                    context = this@ChangeName,
+                    message = "Your name has been updated.",
+                    isConfirmation = false,
+                    onDismiss = { finish() }
+                )
             }
         }
     }
