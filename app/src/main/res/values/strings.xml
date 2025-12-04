@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PBO</string>
+    <string name="app_name">EnergiCalc</string>
     <string name="text_energy">EnergyCalc</string>
     <string name="text_subenergy">Your Power, Calculated.</string>
     <string name="text_welcome">Welcome</string>

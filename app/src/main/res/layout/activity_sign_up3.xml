@@ -98,7 +98,7 @@
             android:layout_weight="1"
             android:background="@drawable/edittext_background"
             android:hint="Enter name"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:padding="12dp"
             android:textColorHint="#AAAAAA"/>
 
@@ -110,7 +110,7 @@
             android:layout_marginStart="15dp"
             android:background="@drawable/edittext_background"
             android:hint="Enter name"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:padding="12dp"
             android:textColorHint="#AAAAAA"/>
     </LinearLayout>
@@ -151,7 +151,7 @@
         android:layout_marginEnd="35dp"
         android:background="@drawable/edittext_background"
         android:textColor="#000000"
-        android:textColorHint="#888888"
+        android:textColorHint="#AAAAAA"
         android:padding="12dp"
         android:hint="Enter your password"
         />

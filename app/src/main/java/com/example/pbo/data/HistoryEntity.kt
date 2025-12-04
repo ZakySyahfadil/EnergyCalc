@@ -14,5 +14,7 @@ data class HistoryEntity(
     // Kolom baru
     val powerValue: String,      // contoh: "500 W"
     val durationValue: String,   // contoh: "30 minutes"
-    val frequencyValue: String   // contoh: "3 times"
+    val frequencyValue: String,   // contoh: "3 times"
+
+    val userOwner: String
 )

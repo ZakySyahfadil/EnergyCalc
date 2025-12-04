@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.lifecycleScope
 import com.example.pbo.R
 import com.example.pbo.data.AppDatabase
@@ -37,7 +38,7 @@ class LogIn : AppCompatActivity() {
             val input = inputEmail.text.toString().trim()
             val pass = inputPass.text.toString().trim()
 
-            // Sembunyikan semua error
+            // Hide all errors
             tvEmailError.visibility = View.GONE
             tvPasswordError.visibility = View.GONE
             tvEmailRegist.visibility = View.GONE
@@ -58,24 +59,32 @@ class LogIn : AppCompatActivity() {
                 val db = AppDatabase.getDatabase(this@LogIn)
                 val dao = db.accountDao()
 
-                // Cari user berdasarkan email atau nomor telepon
-                val account = if (input.contains("@")) {
-                    dao.getAccountByEmail(input.lowercase())
-                } else {
-                    dao.getAccountByPhone(input)
+                // Tentukan apakah input email atau nomor HP
+                val isEmail = input.matches(Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"))
+                val isPhone = input.isDigitsOnly()
+
+                val account = when {
+                    isEmail -> dao.getAccountByEmail(input.lowercase())
+                    isPhone -> dao.getAccountByPhone(input)
+                    else -> dao.getAccountByEmail(input.lowercase()) // fallback untuk input campuran
                 }
 
+                // Tidak ditemukan
                 if (account == null) {
                     runOnUiThread {
-                        if (input.contains("@")) {
+                        if (isEmail) {
                             tvEmailRegist.visibility = View.VISIBLE
-                        } else {
+                        } else if (isPhone) {
                             tvTelephoneRegist.visibility = View.VISIBLE
+                        } else {
+                            // Jika format tidak jelas → tampilkan error email
+                            tvEmailRegist.visibility = View.VISIBLE
                         }
                     }
                     return@launch
                 }
 
+                // Password salah
                 if (account.password != pass) {
                     runOnUiThread {
                         tvPassIncorrect.visibility = View.VISIBLE
@@ -83,18 +92,14 @@ class LogIn : AppCompatActivity() {
                     return@launch
                 }
 
-                // ✔ LOGIN SUKSES
+                // LOGIN SUKSES
                 runOnUiThread {
                     val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
                     val editor = prefs.edit()
 
-                    // Simpan login key (email/no hp)
                     editor.putString("LOGIN_KEY", input)
-
-                    // Ambil data NAMA TERBARU dari database (bukan SharedPreferences)
                     editor.putString("firstname", account.firstName)
                     editor.putString("lastname", account.lastName)
-
                     editor.apply()
 
                     startActivity(Intent(this@LogIn, WelcomePage::class.java))
@@ -104,12 +109,10 @@ class LogIn : AppCompatActivity() {
             }
         }
 
-        // Forgot Password
         btnForgot.setOnClickListener {
             startActivity(Intent(this, EmailForgot::class.java))
         }
 
-        // Sign Up
         btnSignUp.setOnClickListener {
             startActivity(Intent(this, SignUp::class.java))
         }

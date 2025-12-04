@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:id="@+id/panah"
+        android:id="@+id/bttnback"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:src="@drawable/ic_back_arrow"
@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/txt_details"
-        android:layout_below="@id/panah"
+        android:layout_below="@id/bttnback"
         android:layout_marginTop="85dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

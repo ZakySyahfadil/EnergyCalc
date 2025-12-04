@@ -1,5 +1,6 @@
 package com.example.pbo.Alim
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -13,6 +14,7 @@ import com.example.pbo.R
 import com.example.pbo.data.AppDatabase
 import com.example.pbo.data.Account
 import com.example.pbo.utils.DialogUtils
+import com.example.pbo.zaky.ResetPass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -41,6 +43,11 @@ class ChangePassword : AppCompatActivity() {
 
         btnSave.setOnClickListener { handleSavePassword() }
         btnBack.setOnClickListener { finish() }
+        findViewById<Button>(R.id.btnForgot).setOnClickListener {
+            val intent = Intent(this, ResetPass::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun initView() {

@@ -74,7 +74,7 @@
             android:background="@drawable/otp_box"
             android:inputType="number"
             android:maxLength="1"
-            android:textColor="#AAAAAA"
+            android:textColor="@color/black"
             android:gravity="center"
             android:textSize="20sp" />
 
@@ -87,7 +87,7 @@
             android:background="@drawable/otp_box"
             android:inputType="number"
             android:maxLength="1"
-            android:textColor="#AAAAAA"
+            android:textColor="@color/black"
             android:gravity="center"
             android:textSize="20sp" />
 
@@ -97,7 +97,7 @@
             android:layout_height="55dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:textColor="#AAAAAA"
+            android:textColor="@color/black"
             android:background="@drawable/otp_box"
             android:inputType="number"
             android:maxLength="1"
@@ -113,7 +113,7 @@
             android:background="@drawable/otp_box"
             android:inputType="number"
             android:maxLength="1"
-            android:textColor="#AAAAAA"
+            android:textColor="@color/black"
             android:gravity="center"
             android:textSize="20sp" />
 
@@ -126,7 +126,7 @@
             android:background="@drawable/otp_box"
             android:inputType="number"
             android:maxLength="1"
-            android:textColor="#AAAAAA"
+            android:textColor="@color/black"
             android:gravity="center"
             android:textSize="20sp" />
 
@@ -139,7 +139,7 @@
             android:background="@drawable/otp_box"
             android:inputType="number"
             android:maxLength="1"
-            android:textColor="#AAAAAA"
+            android:textColor="@color/black"
             android:gravity="center"
             android:textSize="20sp" />
     </LinearLayout>
