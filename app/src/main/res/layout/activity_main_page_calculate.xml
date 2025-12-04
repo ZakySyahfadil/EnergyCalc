@@ -69,6 +69,15 @@
             android:backgroundTint="@color/light_white" />
 
         <TextView
+            android:id="@+id/wrong1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Please enter your device name"
+            android:textColor="@color/red"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/device_power"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,6 +99,15 @@
             android:layout_marginTop="15dp"
             android:backgroundTint="@color/light_white"
             android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/wrong2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Please enter your device power"
+            android:textColor="@color/red"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,7 +136,6 @@
                     android:textColor="@color/gray"
                     android:textSize="12sp"
                     android:layout_marginTop="4dp"/>
-
             </LinearLayout>
 
             <Switch
@@ -142,7 +159,6 @@
             android:orientation="horizontal"
             android:layout_marginTop="12dp"
             android:visibility="gone">
-
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -199,8 +215,17 @@
                     android:backgroundTint="@color/light_white"
                     android:inputType="number"/>
             </LinearLayout>
-
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/wrong3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text= "Please enter your weekly usage duration and frequency"
+            android:textColor="@color/red"
+            android:visibility="gone" />
+
 
         <Button
             android:id="@+id/button_calculate"
@@ -213,7 +238,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             />
-
     </LinearLayout>
 
 </RelativeLayout>

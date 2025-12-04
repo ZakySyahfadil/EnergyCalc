@@ -41,7 +41,10 @@ class MainPageCalculateResults : AppCompatActivity() {
 
         // --- TOMBOL BACK ---
         val buttonBack = findViewById<ImageView>(R.id.panah)
-        buttonBack.setOnClickListener { finish() }
+        buttonBack.setOnClickListener {
+            val intent = Intent(this, MainPage::class.java)
+            startActivity(intent)
+        }
 
         // --- TAMPILKAN UI ---
         findViewById<TextView>(R.id.device).text = name
