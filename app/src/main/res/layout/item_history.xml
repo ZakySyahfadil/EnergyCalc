@@ -1,25 +1,48 @@
-<!-- file: app/src/main/res/layout/item_history.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp">
+    android:layout_height="72dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:background="@android:color/transparent">
 
-    <TextView
-        android:id="@+id/tvDeviceName"
+    <LinearLayout
+        android:id="@+id/leftArea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Microwave"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/btnDelete"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingEnd="8dp">
 
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="23 November 2025"
-        android:textColor="@color/gray"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvDeviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Device name"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2025-12-04 - 03:18"
+            android:textSize="12sp"
+            android:textColor="@color/gray"
+            android:layout_marginTop="2dp"/>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/trash"
+        android:background="@android:color/transparent"
+        android:contentDescription="Delete"
+        android:scaleType="centerInside"
+        android:padding="6dp" />
+</RelativeLayout>

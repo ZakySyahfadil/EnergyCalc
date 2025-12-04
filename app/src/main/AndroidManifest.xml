@@ -11,7 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PBO">
-
+        <activity
+            android:name=".zaky.HistoryDetails"
+            android:exported="false" />
+        <activity
+            android:name=".zaky.HistoryResults"
+            android:exported="false" />
+        <activity
+            android:name=".zaky.PageHistory"
+            android:exported="false"
+            android:theme="@style/Theme.PBO" />
         <activity
             android:name=".Nazwar.MainPageCalculate"
             android:exported="false"

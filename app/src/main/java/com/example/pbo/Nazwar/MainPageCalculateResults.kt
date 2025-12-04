@@ -42,17 +42,10 @@ class MainPageCalculateResults : AppCompatActivity() {
         buttonBack.setOnClickListener { finish() }
 
         // tampilkan data ke UI
-        val deviceName = findViewById<TextView>(R.id.device)
-        deviceName.text = name
-
-        val devicePower = findViewById<TextView>(R.id.AmtPower)
-        devicePower.text = getString(R.string.label_power, power)
-
-        val deviceDuration = findViewById<TextView>(R.id.AmtDuration)
-        deviceDuration.text = getString(R.string.label_duration, duration)
-
-        val deviceFrequency = findViewById<TextView>(R.id.AmtFrequency)
-        deviceFrequency.text = getString(R.string.label_frequency, frequency)
+        findViewById<TextView>(R.id.device).text = name
+        findViewById<TextView>(R.id.AmtPower).text = getString(R.string.label_power, power)
+        findViewById<TextView>(R.id.AmtDuration).text = getString(R.string.label_duration, duration)
+        findViewById<TextView>(R.id.AmtFrequency).text = getString(R.string.label_frequency, frequency)
 
         // Perhitungan energi & biaya
         val powerWatt = power?.toDoubleOrNull() ?: 0.0
@@ -60,12 +53,13 @@ class MainPageCalculateResults : AppCompatActivity() {
         val frequencyWeek = frequency.toDouble()
         val tariff = 1500.0
 
-        val energyPerUse = (powerWatt / 1000.0) * (durationMin / 60.0)     // kWh per use
-        val energyPerWeek = energyPerUse * frequencyWeek                   // kWh/week
-        val energyPerMonth = energyPerWeek * 4.0                           // kWh/month
+        val energyPerUse = (powerWatt / 1000.0) * (durationMin / 60.0) // kWh per use
+        val energyPerWeek = energyPerUse * frequencyWeek              // kWh/week
+        val energyPerMonth = energyPerWeek * 4.0                      // kWh/month
 
         val costPerMonth = energyPerMonth * tariff
 
+        // tampilkan biaya ke UI
         val amountText = findViewById<TextView>(R.id.amount)
         amountText.text = "Rp${"%,.0f".format(costPerMonth)}/month"
 
@@ -81,27 +75,34 @@ class MainPageCalculateResults : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Simpan ke history (Room) — jalankan di background
-        val currentDateString = currentDate()
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val db = AppDatabase.getDatabase(this@MainPageCalculateResults)
-                val deviceNameVal = name ?: "Unknown device"
+        // ----------------------------------------------------------
+        //     FIX: DATA HANYA DISIMPAN KETIKA TOMBOL SAVE DITEKAN
+        // ----------------------------------------------------------
 
-                // format nilai kWh & cost sebagai String (sesuai HistoryEntity sekarang)
-                val kwhStr = "%.3f kWh".format(energyPerMonth)
-                val costStr = "Rp${"%,.0f".format(costPerMonth)}"
+        val btnSave = findViewById<Button>(R.id.btn_save)
+        btnSave.setOnClickListener {
 
-                db.historyDao().insert(
-                    HistoryEntity(
-                        deviceName = deviceNameVal,
-                        kWh = kwhStr,
-                        totalCost = costStr,
-                        date = currentDateString
+            val currentDateString = currentDate()
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val db = AppDatabase.getDatabase(this@MainPageCalculateResults)
+                    val deviceNameVal = name ?: "Unknown device"
+
+                    val kwhStr = "%.3f kWh".format(energyPerMonth)
+                    val costStr = "Rp${"%,.0f".format(costPerMonth)}"
+
+                    db.historyDao().insert(
+                        HistoryEntity(
+                            deviceName = deviceNameVal,
+                            kWh = kwhStr,
+                            totalCost = costStr,
+                            date = currentDateString
+                        )
                     )
-                )
-            } catch (e: Exception) {
-                e.printStackTrace() // debug bila ada kegagalan insert
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }

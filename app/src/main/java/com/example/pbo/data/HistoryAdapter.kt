@@ -4,13 +4,16 @@ package com.example.pbo.data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pbo.R
 
-class HistoryAdapter : ListAdapter<HistoryEntity, HistoryAdapter.HistoryViewHolder>(DIFF) {
+class HistoryAdapter(
+    private val onDeleteClick: (HistoryEntity) -> Unit
+) : ListAdapter<HistoryEntity, HistoryAdapter.HistoryViewHolder>(DIFF) {
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<HistoryEntity>() {
@@ -25,10 +28,12 @@ class HistoryAdapter : ListAdapter<HistoryEntity, HistoryAdapter.HistoryViewHold
     inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvDevice = itemView.findViewById<TextView>(R.id.tvDeviceName)
         private val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
+        private val btnDelete = itemView.findViewById<ImageButton>(R.id.btnDelete)
 
         fun bind(item: HistoryEntity) {
             tvDevice.text = item.deviceName
             tvDate.text = item.date
+            btnDelete.setOnClickListener { onDeleteClick(item) }
         }
     }
 
@@ -40,4 +45,8 @@ class HistoryAdapter : ListAdapter<HistoryEntity, HistoryAdapter.HistoryViewHold
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
+    /** helper publik kalau butuh mengambil item di luar adapter */
+    fun getItemAt(position: Int): HistoryEntity? =
+        runCatching { getItem(position) }.getOrNull()
 }
