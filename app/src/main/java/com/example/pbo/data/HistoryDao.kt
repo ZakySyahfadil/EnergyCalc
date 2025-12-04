@@ -15,4 +15,7 @@ interface HistoryDao {
 
     @Query("SELECT * FROM history_table ORDER BY id DESC")
     suspend fun getAllHistory(): List<HistoryEntity>
+
+    @Query("SELECT * FROM history_table WHERE id = :id LIMIT 1")
+    fun getHistoryById(id: Int): HistoryEntity?
 }

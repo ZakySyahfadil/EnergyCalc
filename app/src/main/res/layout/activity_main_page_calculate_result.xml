@@ -65,6 +65,7 @@
         android:layout_below="@id/amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
         android:orientation="horizontal"
         android:gravity="center"
         android:clipChildren="false"
