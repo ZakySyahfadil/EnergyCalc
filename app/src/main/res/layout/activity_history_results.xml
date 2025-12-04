@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,4 +8,226 @@
     android:layout_height="match_parent"
     tools:context=".zaky.HistoryResults">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/resultpage"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        />
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_marginStart="9dp"
+        android:src="@drawable/ic_back_arrow" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_below="@id/btnBack"
+        android:layout_marginTop="85dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/device"
+        android:layout_below="@id/result"
+        android:layout_marginTop="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="device_name"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_below="@id/device"
+        android:layout_marginTop="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp0/month"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/silver"
+        android:textStyle="bold"
+        android:textSize="23sp"/>
+
+    <LinearLayout
+        android:id="@+id/resultContainer"
+        android:layout_below="@id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <FrameLayout
+                android:layout_width="140dp"
+                android:layout_height="140dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/item1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/result_item1"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/OvalImage"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/txtPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="power"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+
+                    <TextView
+                        android:id="@+id/AmtPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="0 W"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:maxLines="3"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <FrameLayout
+                android:layout_width="140dp"
+                android:layout_height="140dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/item2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/result_item1"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/OvalImage"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/txtDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="duration"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+
+                    <TextView
+                        android:id="@+id/AmtDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="0 minutes"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:maxLines="3"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <FrameLayout
+                android:layout_width="140dp"
+                android:layout_height="140dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/item3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/result_item1"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/OvalImage"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/txtFrequency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="frequency"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+
+                    <TextView
+                        android:id="@+id/AmtFrequency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="0 times"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:maxLines="3"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btndetails"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/resultContainer"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:text="See Details"
+        android:textColor="#D6B35A"
+        android:background="@drawable/button_border"
+        />
+
+</RelativeLayout>
