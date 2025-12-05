@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Nazwar.MainPageCalculateResults">
+    tools:context=".Nazwar.mainpage.MainPageCalculateResults">
 
     <ImageView
         android:id="@+id/main_page_results"
@@ -68,7 +68,6 @@
         android:orientation="horizontal"
         android:clipChildren="false"
         android:gravity="center"
-        android:clipChildren="false"
         android:layout_marginTop="20dp">
 
         <LinearLayout

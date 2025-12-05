@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Nazwar.MainPageCalculate">
+    tools:context=".Nazwar.mainpage.MainPageCalculate">
 
     <ImageView
         android:id="@+id/main_page_calculate"
@@ -69,7 +69,7 @@
             android:backgroundTint="@color/light_white" />
 
         <TextView
-            android:id="@+id/wrong1"
+            android:id="@+id/wrong_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -101,7 +101,7 @@
             android:inputType="number"/>
 
         <TextView
-            android:id="@+id/wrong2"
+            android:id="@+id/wrong_power"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -218,7 +218,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/wrong3"
+            android:id="@+id/wrong_dur_fre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

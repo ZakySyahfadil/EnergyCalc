@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.pbo.Nazwar.MainPage
+import com.example.pbo.Nazwar.mainpage.MainPage
 import com.example.pbo.R
 
 class WelcomePage : AppCompatActivity() {

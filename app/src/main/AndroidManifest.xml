@@ -22,25 +22,25 @@
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".Nazwar.MainPageCalculate"
+            android:name=".Nazwar.mainpage.MainPageCalculate"
             android:exported="false"
             android:theme="@style/Theme.PBO"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".Nazwar.MainPage"
+            android:name=".Nazwar.mainpage.MainPage"
             android:exported="false"
             android:theme="@style/Theme.PBO"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".Nazwar.MainPageCalculateResults"
+            android:name=".Nazwar.mainpage.MainPageCalculateResults"
             android:exported="false"
             android:theme="@style/Theme.PBO"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name=".Nazwar.MainPageCalculateDetails"
+            android:name=".Nazwar.mainpage.MainPageCalculateDetails"
             android:exported="false"
             android:theme="@style/Theme.PBO"
             android:screenOrientation="portrait"
