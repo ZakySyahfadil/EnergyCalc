@@ -7,12 +7,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.pbo.Alim.settingActivity
 import com.example.pbo.Alim.HistoryActivity
+import com.example.pbo.Alim.settingActivity
+import com.example.pbo.Nazwar.data.UserPreferences
+import com.example.pbo.Nazwar.repository.UserRepositoryImpl
 import com.example.pbo.R
 import com.google.android.material.button.MaterialButton
 
 class MainPage : AppCompatActivity() {
+
+    private lateinit var userRepo: UserRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,48 +24,34 @@ class MainPage : AppCompatActivity() {
         setContentView(R.layout.activity_main_page)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            val sys = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(sys.left, sys.top, sys.right, sys.bottom)
             insets
         }
 
+        // Init user data (SOLID DIP)
+        val prefs = UserPreferences(this)
+        userRepo = UserRepositoryImpl(prefs)
+
+        // Set name
         val tvName = findViewById<TextView>(R.id.name)
-        val editProfile = findViewById<TextView>(R.id.edit)
+        tvName.text = userRepo.getFullName()
 
-        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-        val firstname = prefs.getString("firstname", "User")
-        val lastname = prefs.getString("lastname", "")
-
-        tvName.text = "$firstname $lastname".trim()
-
-        editProfile.setOnClickListener {
+        findViewById<TextView>(R.id.edit).setOnClickListener {
             startActivity(Intent(this, settingActivity::class.java))
         }
 
-        // Tombol Calculate
-        val buttonCalculate = findViewById<MaterialButton>(R.id.button_calculate)
-        buttonCalculate.setOnClickListener {
-            val intent = Intent(this, MainPageCalculate::class.java)
-            startActivity(intent)
+        findViewById<MaterialButton>(R.id.button_calculate).setOnClickListener {
+            startActivity(Intent(this, MainPageCalculate::class.java))
         }
 
-        // Tombol History
-        val buttonHistory = findViewById<MaterialButton>(R.id.buttonHistory)
-
-        buttonHistory.setOnClickListener {
+        findViewById<MaterialButton>(R.id.buttonHistory).setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
     }
 
     override fun onResume() {
         super.onResume()
-
-        val tvName = findViewById<TextView>(R.id.name)
-
-        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-        val firstname = prefs.getString("firstname", "User")
-        val lastname = prefs.getString("lastname", "")
-
-        tvName.text = "$firstname $lastname".trim()
+        findViewById<TextView>(R.id.name).text = userRepo.getFullName()
     }
 }

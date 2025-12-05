@@ -15,9 +15,7 @@ import com.example.pbo.utils.DialogUtils
 import com.example.pbo.viewmodel.ChangeNameViewModel
 import com.example.pbo.viewmodel.ViewModelFactory
 
-// [SRP] Activity ini hanya bertanggung jawab MENAMPILKAN UI dan menangani Input User.
-// Logika penyimpanan data sudah dipindah ke ViewModel & Repository.
-
+// Activity ini hanya bertanggung jawab MENAMPILKAN UI dan menangani Input User.
 class ChangeName : AppCompatActivity() {
 
     private lateinit var firstName: EditText
@@ -66,7 +64,7 @@ class ChangeName : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        // [Observer Pattern] Activity bereaksi terhadap perubahan state di ViewModel
+        // Activity bereaksi terhadap perubahan state di ViewModel
         viewModel.updateStatus.observe(this) { isSuccess ->
             if (isSuccess) {
                 val returnIntent = Intent().apply {

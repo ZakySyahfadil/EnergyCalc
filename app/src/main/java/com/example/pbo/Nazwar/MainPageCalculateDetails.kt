@@ -7,9 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.pbo.Nazwar.formatter.CalculationFormatter
 import com.example.pbo.R
 
 class MainPageCalculateDetails : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,29 +23,29 @@ class MainPageCalculateDetails : AppCompatActivity() {
             insets
         }
 
-        // Ambil nilai dari Intent
-        val power = intent.getStringExtra("power")?.toDoubleOrNull() ?: 0.0
-        val duration = intent.getIntExtra("duration", 0).toDouble()
-        val frequency = intent.getIntExtra("frequency", 0).toDouble()
+        // === Ambil data ===
+        val power = intent.getIntExtra("power", 0)
+        val durationMinutes = intent.getIntExtra("duration", 0)
+        val frequency = intent.getIntExtra("frequency", 0)
         val energyPerWeek = intent.getDoubleExtra("energyPerWeek", 0.0)
         val costPerMonth = intent.getDoubleExtra("costPerMonth", 0.0)
 
-        // Tombol back
-        findViewById<ImageView>(R.id.panah).setOnClickListener {
-            finish()
-        }
+        val durationHour = durationMinutes / 60.0
 
-        // Penjelasan perhitungan energi mingguan
-        val txt2 = findViewById<TextView>(R.id.txt2)
-        txt2.text = "= (${power.toInt()} × ${"%.2f".format(duration / 60 * frequency)}) ÷ 1000"
+        // === Tombol kembali ===
+        findViewById<ImageView>(R.id.panah).setOnClickListener { finish() }
 
-        val txt3 = findViewById<TextView>(R.id.txt3)
-        txt3.text = "= ${"%.3f".format(energyPerWeek)} kWh"
+        // === Tampilkan penjelasan – SEKARANG 100% BERSIH ===
+        findViewById<TextView>(R.id.txt2).text = CalculationFormatter.formatEnergyFormula(
+            powerWatt = power,
+            durationHour = durationHour,
+            frequencyWeek = frequency
+        )
 
-        val txt6 = findViewById<TextView>(R.id.txt6)
-        txt6.text = "= ${"%.3f".format(energyPerWeek)} × 1.500 × 4"
+        findViewById<TextView>(R.id.txt3).text = CalculationFormatter.formatWeeklyEnergy(energyPerWeek)
 
-        val txt7 = findViewById<TextView>(R.id.txt7)
-        txt7.text = "Rp${"%,.0f".format(costPerMonth)}/month"
+        findViewById<TextView>(R.id.txt6).text = CalculationFormatter.formatMonthlyCostFormula(energyPerWeek)
+
+        findViewById<TextView>(R.id.txt7).text = CalculationFormatter.formatMonthlyCost(costPerMonth)
     }
 }

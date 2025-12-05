@@ -3,6 +3,7 @@ package com.example.pbo.Alim
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -41,6 +42,8 @@ class settingActivity : AppCompatActivity() {
             val intent = Intent(this, ChangeName::class.java)
             changeNameLauncher.launch(intent)
         }
+
+        findViewById<ImageView>(R.id.btn_back).setOnClickListener { finish() }
 
         findViewById<Button>(R.id.btn2).setOnClickListener {
             startActivity(Intent(this, ChangePassword::class.java))

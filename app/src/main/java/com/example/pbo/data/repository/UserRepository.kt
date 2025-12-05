@@ -7,7 +7,7 @@ import com.example.pbo.data.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-// [DIP - Dependency Inversion Principle]
+// DIP - Dependency Inversion Principle
 // Modul tingkat tinggi (ViewModel) tidak boleh bergantung pada modul tingkat rendah (Database langsung).
 // Keduanya bergantung pada Abstraksi (Interface ini).
 interface UserRepository {
@@ -20,9 +20,8 @@ interface UserRepository {
     fun logout()
 }
 
-// [SRP - Single Responsibility Principle]
+// SRP - Single Responsibility Principle
 // Kelas ini HANYA bertanggung jawab mengurus DATA (Database & SharedPreferences).
-// Tidak ada urusan UI di sini.
 class UserRepositoryImpl(private val context: Context) : UserRepository {
 
     private val db = AppDatabase.getDatabase(context)

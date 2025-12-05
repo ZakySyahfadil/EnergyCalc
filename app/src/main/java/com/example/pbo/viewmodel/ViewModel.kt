@@ -8,14 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.pbo.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
-// [SRP] ViewModel hanya mengurus LOGIKA bisnis dan state, tidak mengurus View/UI.
+// SRP ViewModel hanya mengurus LOGIKA bisnis dan state, tidak mengurus View/UI.
 
 class ChangeNameViewModel(private val repository: UserRepository) : ViewModel() {
 
     private val _updateStatus = MutableLiveData<Boolean>()
     val updateStatus: LiveData<Boolean> get() = _updateStatus
 
-    // [OCP - Open/Closed Principle]
+    // OCP - Open/Closed Principle
     // Jika kita ingin mengubah cara validasi nama, kita ubah di sini tanpa mengganggu UI Activity.
     fun validateAndSaveName(first: String, last: String): Boolean {
         if (first.isEmpty() || last.isEmpty()) {
