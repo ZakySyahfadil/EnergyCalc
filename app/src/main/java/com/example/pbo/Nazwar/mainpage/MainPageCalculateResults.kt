@@ -1,4 +1,3 @@
-// File: ui/MainPageCalculateResults.kt
 package com.example.pbo.Nazwar.mainpage
 
 import android.content.Intent
@@ -21,7 +20,7 @@ import kotlinx.coroutines.launch
 
 class MainPageCalculateResults : AppCompatActivity() {
 
-    // Lazy initialization → tetap ringan, tetap testable
+    // Lazy initialization
     private val database by lazy { AppDatabase.getDatabase(this) }
     private val userPrefs by lazy { UserPreferences(this) }
     private val historyRepo by lazy { HistoryRepositoryImpl(database.historyDao()) }
@@ -84,7 +83,7 @@ class MainPageCalculateResults : AppCompatActivity() {
                 })
             }
 
-            // === TOMBOL SAVE – SEKARANG SUPER CLEAN ===
+            // === TOMBOL SAVE ===
             findViewById<Button>(R.id.btn_save).setOnClickListener {
                 DialogUtils.showUniversalDialog(
                     context = this,
@@ -116,5 +115,5 @@ class MainPageCalculateResults : AppCompatActivity() {
                     }
                 )
             }
-        }
     }
+}

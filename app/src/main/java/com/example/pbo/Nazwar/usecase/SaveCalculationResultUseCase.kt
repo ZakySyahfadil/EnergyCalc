@@ -1,4 +1,3 @@
-// File: usecase/SaveCalculationResultUseCase.kt
 package com.example.pbo.Nazwar.usecase
 
 import com.example.pbo.Nazwar.data.UserPreferences

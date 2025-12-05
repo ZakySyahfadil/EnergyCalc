@@ -29,7 +29,7 @@ class UserPreferences(context: Context) {
             .apply()
     }
 
-    // --- Login State (dipakai di SaveCalculationResultUseCase) ---
+    // --- Login State ---
     fun getCurrentUser(): String? = prefs.getString(KEY_LOGIN, null)
 
     fun saveLoginKey(emailOrUsername: String) {

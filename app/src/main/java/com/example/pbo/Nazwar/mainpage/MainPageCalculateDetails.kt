@@ -1,4 +1,3 @@
-// File: ui/MainPageCalculateDetails.kt (VERSI FINAL SOLID)
 package com.example.pbo.Nazwar.mainpage
 
 import android.os.Bundle

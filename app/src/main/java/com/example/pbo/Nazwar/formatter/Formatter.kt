@@ -1,11 +1,10 @@
-// File: formatter/CalculationFormatter.kt
 package com.example.pbo.Nazwar.formatter
 
 object CalculationFormatter {
 
     fun formatEnergyFormula(
         powerWatt: Int,
-        durationHour: Double,  // sudah dalam jam
+        durationHour: Double,
         frequencyWeek: Int
     ): String {
         return "= ($powerWatt × ${"%.2f".format(durationHour * frequencyWeek)}) ÷ 1000"

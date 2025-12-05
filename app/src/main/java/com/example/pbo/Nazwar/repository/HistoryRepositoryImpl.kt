@@ -1,4 +1,3 @@
-// File: repository/HistoryRepositoryImpl.kt
 package com.example.pbo.Nazwar.repository
 
 import com.example.pbo.data.HistoryDao
