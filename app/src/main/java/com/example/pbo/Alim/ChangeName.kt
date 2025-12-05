@@ -1,106 +1,81 @@
 package com.example.pbo.Alim
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.example.pbo.R
-import com.example.pbo.data.AppDatabase
+import com.example.pbo.data.repository.UserRepositoryImpl
 import com.example.pbo.utils.DialogUtils
-import kotlinx.coroutines.launch
+import com.example.pbo.viewmodel.ChangeNameViewModel
+import com.example.pbo.viewmodel.ViewModelFactory
+
+// [SRP] Activity ini hanya bertanggung jawab MENAMPILKAN UI dan menangani Input User.
+// Logika penyimpanan data sudah dipindah ke ViewModel & Repository.
 
 class ChangeName : AppCompatActivity() {
 
     private lateinit var firstName: EditText
     private lateinit var lastName: EditText
     private lateinit var errorText: TextView
-    private lateinit var saveButton: Button
+    private lateinit var viewModel: ChangeNameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_change_name)
 
+        // Setup Dependency (Manual Injection)
+        val repository = UserRepositoryImpl(this)
+        val factory = ViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory)[ChangeNameViewModel::class.java]
+
+        initViews()
+        observeViewModel()
+    }
+
+    private fun initViews() {
         firstName = findViewById(R.id.firstname)
         lastName = findViewById(R.id.lastname)
         errorText = findViewById(R.id.enteryourname)
-        saveButton = findViewById(R.id.savebutton)
-
-        errorText.visibility = View.GONE
+        val saveButton: Button = findViewById(R.id.savebutton)
 
         saveButton.setOnClickListener {
-            if (validateName()) {
-                DialogUtils.showUniversalDialog(
-                    context = this,
-                    message = "Are you sure you want to change your name?",
-                    isConfirmation = true,
-                    onConfirm = { performUpdateName() }
-                )
-            }
-        }
+            val first = firstName.text.toString().trim()
+            val last = lastName.text.toString().trim()
 
-        findViewById<ImageView>(R.id.btn_back).setOnClickListener { finish() }
-    }
-
-    private fun validateName(): Boolean {
-        val first = firstName.text.toString().trim()
-        val last = lastName.text.toString().trim()
-
-        return if (first.isEmpty() || last.isEmpty()) {
-            errorText.visibility = View.VISIBLE
-            false
-        } else {
-            errorText.visibility = View.GONE
-            true
-        }
-    }
-
-    private fun performUpdateName() {
-        val first = firstName.text.toString().trim()
-        val last = lastName.text.toString().trim()
-
-        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-        val loginKey = prefs.getString("LOGIN_KEY", null)
-
-        // Simpan ke SharedPreferences
-        prefs.edit()
-            .putString("firstname", first)
-            .putString("lastname", last)
-            .apply()
-
-        // Hasil untuk SettingActivity (agar nama langsung ter-update tanpa logout)
-        val returnIntent = Intent()
-        returnIntent.putExtra("UPDATED_NAME", "$first $last")
-        setResult(RESULT_OK, returnIntent)
-
-        // Jika tidak ada LOGIN_KEY (misal dari SignUp langsung), tetap sukses
-        if (loginKey == null) {
+            // UI Logic: Konfirmasi user sebelum aksi logic
             DialogUtils.showUniversalDialog(
                 context = this,
-                message = "Your name has been updated.",
-                isConfirmation = false,
-                onDismiss = { finish() }
+                message = "Are you sure you want to change your name?",
+                isConfirmation = true,
+                onConfirm = {
+                    // Panggil Logic di ViewModel
+                    val isValid = viewModel.validateAndSaveName(first, last)
+                    if (!isValid) errorText.visibility = View.VISIBLE else errorText.visibility = View.GONE
+                }
             )
-            return
         }
 
-        // Update database menggunakan coroutine
-        lifecycleScope.launch {
-            val db = AppDatabase.getDatabase(this@ChangeName)
-            val dao = db.accountDao()
+        findViewById<View>(R.id.btn_back).setOnClickListener { finish() }
+    }
 
-            dao.updateName(loginKey, first, last)
+    private fun observeViewModel() {
+        // [Observer Pattern] Activity bereaksi terhadap perubahan state di ViewModel
+        viewModel.updateStatus.observe(this) { isSuccess ->
+            if (isSuccess) {
+                val returnIntent = Intent().apply {
+                    putExtra("UPDATED_NAME", "${firstName.text} ${lastName.text}")
+                }
+                setResult(RESULT_OK, returnIntent)
 
-            runOnUiThread {
                 DialogUtils.showUniversalDialog(
-                    context = this@ChangeName,
+                    context = this,
                     message = "Your name has been updated.",
                     isConfirmation = false,
                     onDismiss = { finish() }
