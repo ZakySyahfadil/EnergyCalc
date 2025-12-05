@@ -12,9 +12,14 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.lifecycleScope
 import com.example.pbo.R
 import com.example.pbo.data.AppDatabase
+import com.example.pbo.data.repository.AccountRepository
+import com.example.pbo.domain.LoginResult
+import com.example.pbo.domain.LoginUseCase
 import kotlinx.coroutines.launch
 
 class LogIn : AppCompatActivity() {
+
+    private lateinit var loginUseCase: LoginUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +38,11 @@ class LogIn : AppCompatActivity() {
         val tvPassIncorrect = findViewById<TextView>(R.id.tvPassIncorrect)
         val tvTelephoneRegist = findViewById<TextView>(R.id.tvTelephoneRegist)
 
+        // Init use case
+        val dao = AppDatabase.getDatabase(this).accountDao()
+        val repo = AccountRepository(dao)
+        loginUseCase = LoginUseCase(repo)
+
         btnLogin.setOnClickListener {
 
             val input = inputEmail.text.toString().trim()
@@ -45,67 +55,41 @@ class LogIn : AppCompatActivity() {
             tvPassIncorrect.visibility = View.GONE
             tvTelephoneRegist.visibility = View.GONE
 
-            if (input.isEmpty()) {
-                tvEmailError.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            if (pass.isEmpty()) {
-                tvPasswordError.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
             lifecycleScope.launch {
-                val db = AppDatabase.getDatabase(this@LogIn)
-                val dao = db.accountDao()
 
-                // Tentukan apakah input email atau nomor HP
-                val isEmail = input.matches(Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"))
-                val isPhone = input.isDigitsOnly()
+                when (val result = loginUseCase.execute(input, pass)) {
 
-                val account = when {
-                    isEmail -> dao.getAccountByEmail(input.lowercase())
-                    isPhone -> dao.getAccountByPhone(input)
-                    else -> dao.getAccountByEmail(input.lowercase()) // fallback untuk input campuran
-                }
+                    LoginResult.InputEmpty ->
+                        tvEmailError.visibility = View.VISIBLE
 
-                // Tidak ditemukan
-                if (account == null) {
-                    runOnUiThread {
-                        if (isEmail) {
+                    LoginResult.PasswordEmpty ->
+                        tvPasswordError.visibility = View.VISIBLE
+
+                    LoginResult.NotRegistered -> {
+                        if (input.contains("@"))
                             tvEmailRegist.visibility = View.VISIBLE
-                        } else if (isPhone) {
+                        else if (input.all { it.isDigit() })
                             tvTelephoneRegist.visibility = View.VISIBLE
-                        } else {
-                            // Jika format tidak jelas → tampilkan error email
+                        else
                             tvEmailRegist.visibility = View.VISIBLE
-                        }
                     }
-                    return@launch
-                }
 
-                // Password salah
-                if (account.password != pass) {
-                    runOnUiThread {
+                    LoginResult.WrongPassword ->
                         tvPassIncorrect.visibility = View.VISIBLE
+
+                    is LoginResult.Success -> {
+                        val account = result.account
+                        val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
+                        prefs.edit()
+                            .putString("LOGIN_KEY", input)
+                            .putString("firstname", account.firstName)
+                            .putString("lastname", account.lastName)
+                            .apply()
+
+                        startActivity(Intent(this@LogIn, WelcomePage::class.java))
+                        finish()
                     }
-                    return@launch
                 }
-
-                // LOGIN SUKSES
-                runOnUiThread {
-                    val prefs = getSharedPreferences("USER_PREFS", MODE_PRIVATE)
-                    val editor = prefs.edit()
-
-                    editor.putString("LOGIN_KEY", input)
-                    editor.putString("firstname", account.firstName)
-                    editor.putString("lastname", account.lastName)
-                    editor.apply()
-
-                    startActivity(Intent(this@LogIn, WelcomePage::class.java))
-                    finish()
-                }
-
             }
         }
 

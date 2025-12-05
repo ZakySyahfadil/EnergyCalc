@@ -100,6 +100,7 @@
             android:hint="Enter name"
             android:textColor="@color/black"
             android:padding="12dp"
+            android:inputType="textPersonName"
             android:textColorHint="#AAAAAA"/>
 
         <EditText
@@ -112,6 +113,7 @@
             android:hint="Enter name"
             android:textColor="@color/black"
             android:padding="12dp"
+            android:inputType="textPersonName"
             android:textColorHint="#AAAAAA"/>
     </LinearLayout>
 

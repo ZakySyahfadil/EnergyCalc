@@ -62,6 +62,7 @@
         android:textColorHint="#AAAAAA"
         android:textColor="@color/black"
         android:padding="12dp"
+        android:inputType="textPassword"
         android:hint="Enter your new password"
         />
 
@@ -119,7 +120,7 @@
         android:padding="12dp"
         android:textColor="@color/black"
         android:hint="Enter your new password"
-        android:textColorHint="#888888"
+        android:textColorHint="#AAAAAA"
         />
 
     <TextView

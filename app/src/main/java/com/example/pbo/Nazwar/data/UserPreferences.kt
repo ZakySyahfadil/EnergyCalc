@@ -32,11 +32,4 @@ class UserPreferences(context: Context) {
     // --- Login State ---
     fun getCurrentUser(): String? = prefs.getString(KEY_LOGIN, null)
 
-    fun saveLoginKey(emailOrUsername: String) {
-        prefs.edit().putString(KEY_LOGIN, emailOrUsername).apply()
-    }
-
-    fun clearLogin() {
-        prefs.edit().remove(KEY_LOGIN).apply()
-    }
 }

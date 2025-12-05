@@ -4,5 +4,5 @@ data class DeviceUsage(
     val name: String,
     val power: Int,
     val duration: Int,
-    val frequency: Int
+    val frequency:Int
 )

@@ -37,7 +37,6 @@ class InputValidator {
                 if (freqEmpty) frequencyError = true
             }
         }
-
         return ValidationResult(
             isValid = !nameError && !powerError && !durationError && !frequencyError && !bothError,
             nameError = nameError,
